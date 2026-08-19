@@ -24,6 +24,7 @@ Turn product requirements and live user journeys into:
 - CI release gates.
 
 ```bash
+npx humanqa install-browser
 npx humanqa verify --config humanqa.yml
 ```
 
@@ -38,7 +39,7 @@ git clone https://github.com/Hotragn/humanqa.git
 cd humanqa
 corepack enable
 pnpm install
-pnpm exec playwright install chromium
+pnpm humanqa install-browser
 
 # Terminal 1: intentionally broken local fixture
 pnpm demo
@@ -126,6 +127,7 @@ humanqa verify --config humanqa.yml
 humanqa generate-test <report.json>
 humanqa list-packs
 humanqa validate-pack <path>
+humanqa install-browser [--with-deps]
 humanqa doctor
 humanqa github comment --report <report.json> --dry-run
 ```
@@ -325,7 +327,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm humanqa install-browser --with-deps
       - run: pnpm humanqa verify --config humanqa.yml
 ```
 
@@ -372,7 +374,7 @@ docs/           Discovery evidence, implementation decisions, safety, contributi
 ```bash
 corepack enable
 pnpm install
-pnpm exec playwright install chromium
+pnpm humanqa install-browser
 pnpm build
 pnpm format:check
 pnpm lint
@@ -389,10 +391,10 @@ Node.js 20 or newer and pnpm 10 are required. Run `pnpm humanqa doctor` for loca
 ### Chromium is missing
 
 ```bash
-pnpm exec playwright install chromium
+pnpm humanqa install-browser
 ```
 
-On Linux CI, use `pnpm exec playwright install --with-deps chromium`.
+On Linux CI, use `pnpm humanqa install-browser --with-deps`.
 
 ### PowerShell blocks `pnpm.ps1`
 

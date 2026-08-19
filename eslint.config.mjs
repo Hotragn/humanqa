@@ -7,6 +7,7 @@ export default tseslint.config(
       "**/dist/**",
       "**/node_modules/**",
       "humanqa-output/**",
+      "release-artifacts/**",
       "examples/**/generated/**",
       "apps/demo-dashboard/public/**"
     ]

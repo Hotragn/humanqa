@@ -35,7 +35,9 @@ import {
 } from "@humanqa/scorer";
 import { writeGeneratedTest } from "@humanqa/test-generator";
 
-const cliVersion = "0.1.0";
+import { formatCliError, installChromiumBrowser } from "./runtime.js";
+
+const cliVersion = "0.1.1";
 const repositoryRoot = process.cwd();
 
 interface AuditOptions {
@@ -423,9 +425,7 @@ async function doctorCommand(): Promise<void> {
   checks.push({
     name: "Playwright Chromium",
     ok: browserPresent,
-    detail: browserPresent
-      ? browserPath
-      : "Not installed; run pnpm exec playwright install chromium"
+    detail: browserPresent ? browserPath : "Not installed; run npx humanqa install-browser"
   });
   const packsPresent = await access(join(repositoryRoot, "packs")).then(
     () => true,
@@ -546,6 +546,15 @@ program
   });
 
 program
+  .command("install-browser")
+  .description("Install the Playwright Chromium runtime required for audits")
+  .option("--with-deps", "also install Linux system dependencies for Chromium", false)
+  .action(async (options: { withDeps: boolean }) => {
+    await installChromiumBrowser({ withDependencies: options.withDeps });
+    process.stdout.write("Playwright Chromium is installed and ready for HumanQA.\n");
+  });
+
+program
   .command("doctor")
   .description("Check the local HumanQA runtime without sending data")
   .action(doctorCommand);
@@ -566,7 +575,7 @@ github
   });
 
 program.parseAsync(process.argv).catch((error: unknown) => {
-  const message = error instanceof Error ? error.message : String(error);
+  const message = formatCliError(error);
   process.stderr.write(`HumanQA error: ${message}\n`);
   process.exitCode = 2;
 });

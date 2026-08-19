@@ -3,7 +3,11 @@ import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const archive = resolve(root, "release-artifacts/humanqa-0.1.0.tgz");
+const expectedManifest = JSON.parse(await readFile(resolve(root, "apps/cli/package.json"), "utf8"));
+const archive = resolve(
+  root,
+  `release-artifacts/${expectedManifest.name}-${expectedManifest.version}.tgz`
+);
 const binary = resolve(root, "apps/cli/dist/bin.cjs");
 
 const archiveStat = await stat(archive);
@@ -33,8 +37,13 @@ for (const forbidden of [".env", "humanqa-output", "node_modules", "src/"]) {
 const packedManifest = JSON.parse(
   execFileSync("tar", ["-xOf", archive, "package/package.json"], { encoding: "utf8" })
 );
-if (packedManifest.name !== "humanqa" || packedManifest.version !== "0.1.0") {
-  throw new Error("Packed package identity does not match humanqa@0.1.0.");
+if (
+  packedManifest.name !== expectedManifest.name ||
+  packedManifest.version !== expectedManifest.version
+) {
+  throw new Error(
+    `Packed package identity does not match ${expectedManifest.name}@${expectedManifest.version}.`
+  );
 }
 if (JSON.stringify(packedManifest).includes("workspace:")) {
   throw new Error("Packed package contains an unresolved workspace dependency.");
@@ -47,7 +56,17 @@ const version = execFileSync(process.execPath, [binary, "--version"], {
   cwd: root,
   encoding: "utf8"
 }).trim();
-if (version !== "0.1.0") throw new Error(`Built CLI returned unexpected version ${version}.`);
+if (version !== expectedManifest.version) {
+  throw new Error(`Built CLI returned unexpected version ${version}.`);
+}
+
+const help = execFileSync(process.execPath, [binary, "--help"], {
+  cwd: root,
+  encoding: "utf8"
+});
+if (!help.includes("install-browser")) {
+  throw new Error("Built CLI is missing its first-use browser installer command.");
+}
 
 const source = await readFile(binary, "utf8");
 if (!source.startsWith("#!/usr/bin/env node")) {
@@ -57,7 +76,7 @@ if (!source.startsWith("#!/usr/bin/env node")) {
 console.log(
   JSON.stringify(
     {
-      package: "humanqa@0.1.0",
+      package: `${expectedManifest.name}@${expectedManifest.version}`,
       archiveBytes: archiveStat.size,
       files: listing.length,
       runtimeDependencies: Object.keys(packedManifest.dependencies ?? {}),

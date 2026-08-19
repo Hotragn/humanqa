@@ -189,7 +189,7 @@
       <section id="install" class="section shell install-section">
         <div class="install-copy" data-reveal>
           <p class="eyebrow">Local-first setup</p>
-          <h2>From URL to proof in one command</h2>
+          <h2>Install once. Turn URLs into proof.</h2>
           <p>No hosted account, telemetry, or model key is required.</p>
         </div>
         <div class="command-panel" data-reveal>
@@ -197,10 +197,8 @@
             <span>PowerShell or shell</span
             ><button type="button" data-copy="#install-command">Copy</button>
           </div>
-          <pre
-            id="install-command"
-            tabindex="0"
-          ><code>npx humanqa audit http://127.0.0.1:4173 --journey packs/journeys/saas-project-creation.yaml</code></pre>
+          <pre id="install-command" tabindex="0"><code>npx humanqa install-browser
+npx humanqa audit http://127.0.0.1:4173 --journey packs/journeys/saas-project-creation.yaml</code></pre>
           <div class="command-result">
             <span data-icon="check"></span><span>Evidence stays on your machine by default.</span>
           </div>

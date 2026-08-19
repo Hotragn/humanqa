@@ -102,7 +102,7 @@
             <button type="button" data-copy="#quickstart-code">Copy</button>
             <pre id="quickstart-code" tabindex="0"><code>corepack enable
 pnpm install --frozen-lockfile
-pnpm exec playwright install chromium
+pnpm humanqa install-browser
 pnpm demo
 pnpm humanqa audit http://127.0.0.1:4173 --offline --journey packs/journeys/saas-project-creation.yaml</code></pre>
           </div>
@@ -167,6 +167,7 @@ quality_contracts:
             ><code role="listitem">humanqa generate-test &lt;report.json&gt;</code
             ><code role="listitem">humanqa list-packs</code
             ><code role="listitem">humanqa validate-pack &lt;path&gt;</code
+            ><code role="listitem">humanqa install-browser [--with-deps]</code
             ><code role="listitem">humanqa doctor</code
             ><code role="listitem"
               >humanqa github comment --report &lt;report.json&gt; --dry-run</code
@@ -301,7 +302,7 @@ pnpm humanqa validate-pack path/to/new-pack.yaml</code></pre>
             <button type="button" data-copy="#ci-code">Copy</button>
             <pre id="ci-code" tabindex="0"><code>- uses: pnpm/action-setup@v4
 - run: pnpm install --frozen-lockfile
-- run: pnpm exec playwright install --with-deps chromium
+- run: pnpm humanqa install-browser --with-deps
 - run: pnpm humanqa verify --config humanqa.yml</code></pre>
           </div>
           <p>

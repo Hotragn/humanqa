@@ -32,6 +32,7 @@ describe.sequential("HumanQA marketing and documentation site", () => {
     try {
       const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
       const page = await context.newPage();
+      await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
       await page.goto(baseUrl, { waitUntil: "networkidle" });
 
       await expect(page.title()).resolves.toContain("HumanQA");
@@ -58,7 +59,7 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       ).toBe(true);
 
       const axe = await runAxeScan(page, { screenshots: [], journeyCriticality: 5 });
-      expect(axe.violations).toHaveLength(0);
+      expect(axe.violations, JSON.stringify(axe.violations, null, 2)).toHaveLength(0);
     } finally {
       await browser.close();
     }

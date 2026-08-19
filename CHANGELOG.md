@@ -4,6 +4,21 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-19
+
+### Added
+
+- `humanqa install-browser`, with optional `--with-deps` support for Linux CI, installs the version-matched Playwright Chromium runtime.
+- Focused tests for browser-install arguments, package-local Playwright resolution, and missing-browser recovery guidance.
+
+### Fixed
+
+- Fresh installations now receive a HumanQA-specific recovery command instead of Playwright's generic missing-executable error.
+- Release packaging derives the archive name and expected CLI version from `apps/cli/package.json` instead of hard-coded version strings.
+- Website, package, repository, and CI documentation now include the required first-use browser setup.
+
+## [0.1.0] - 2026-08-19
+
 ### Added
 
 - Discovery evidence, assumption map, validation plan, and decision system.
@@ -11,11 +26,13 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 - Safe Playwright journey execution, axe and keyboard evidence, deterministic checks, scoring, report formats, and regression scaffolds.
 - Broken/fixed fixture, community packs, portable skills, GitHub dry-run formatting, examples, tests, governance, and launch plans.
 - Dedicated marketing and documentation website with a bespoke evidence-glyph icon family, responsive light and dark themes, searchable docs, and real fixture report imagery.
-- npm publication metadata, isolated public-package contents, provenance-aware trusted-publishing workflow, tarball validator, and GitHub Pages deployment workflow.
+- npm publication metadata, isolated public-package contents, provenance-aware trusted-publishing workflow, tarball validator, and Vercel production deployment.
 - Website accessibility, keyboard, responsive overflow, icon uniqueness, release metadata, and package-boundary tests.
 
 ### Security
 
 - Local-first defaults, common text redaction, screenshot opt-out, offline loopback mode, high-impact action blocking, and explicit external-adapter consent boundary.
 
-[Unreleased]: https://github.com/Hotragn/humanqa/commits/main
+[Unreleased]: https://github.com/Hotragn/humanqa/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/Hotragn/humanqa/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/Hotragn/humanqa/releases/tag/v0.1.0

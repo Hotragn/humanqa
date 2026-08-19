@@ -11,10 +11,10 @@ npm install --global humanqa
 humanqa doctor
 ```
 
-Playwright may ask you to install Chromium once:
+Install the version-matched Chromium runtime once:
 
 ```bash
-npx playwright install chromium
+humanqa install-browser
 ```
 
 ## First audit
@@ -38,6 +38,7 @@ humanqa verify --config humanqa.yml
 humanqa generate-test <report.json>
 humanqa list-packs
 humanqa validate-pack <path>
+humanqa install-browser [--with-deps]
 humanqa doctor
 humanqa github comment --report <report.json> --dry-run
 ```
