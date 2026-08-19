@@ -1,14 +1,16 @@
 # HumanQA v0.1 release validation
 
-**Validated:** 2026-08-18  
-**Disposition:** Public repository and Vercel production site live; npm artifact publish-ready and awaiting npm authentication  
+**Validated:** 2026-08-19
+
+**Disposition:** Public repository, Vercel production site, and `humanqa@0.1.0` npm package live
+
 **Scope:** CLI package, deterministic audit vertical slice, starter packs, marketing site, documentation site, release automation, and hosting artifact
 
 ## Executive result
 
-The local source and generated artifacts passed the complete `pnpm release:validate` gate. The npm archive contains only the five intended files and reports a working `humanqa 0.1.0` executable. The website passed desktop, mobile, keyboard, search, responsive-overflow, original-icon-family, and automated accessibility checks in light and dark color schemes.
+The local source and generated artifacts passed the complete `pnpm release:validate` gate. The npm archive contains only the five intended files and reports a working `humanqa 0.1.0` executable. The exact validated archive was published to npm, its registry checksum matches the local artifact, and a clean public-registry install passed version and help-command smoke tests. The website passed desktop, mobile, keyboard, search, responsive-overflow, original-icon-family, and automated accessibility checks in light and dark color schemes.
 
-The validated source is public at `Hotragn/humanqa`, and the production website is live at `https://humanqa-nine.vercel.app`. The npm package has not been published because the local npm client is not authenticated. npm publication remains an explicit maintainer step.
+The validated source is public at `Hotragn/humanqa`, the production website is live at `https://humanqa-nine.vercel.app`, and the package is public at `https://www.npmjs.com/package/humanqa`.
 
 ## Gate results
 
@@ -24,6 +26,7 @@ The validated source is public at `Hotragn/humanqa`, and the production website 
 | Demo fixture build    | Pass, Vite 7 production build                                           |
 | Website build         | Pass, Vite 8 production build with Sites metadata and worker entrypoint |
 | npm archive validator | Pass, status `publish-ready`                                            |
+| Public npm smoke test | Pass, clean install plus `--version` and `--help` execution             |
 
 ## Behavioral evidence
 
@@ -42,17 +45,19 @@ Automated Axe results are bounded evidence, not a claim of complete WCAG conform
 
 Archive: `release-artifacts/humanqa-0.1.0.tgz`
 
-| Property                                   | Observed value                                                             |
-| ------------------------------------------ | -------------------------------------------------------------------------- |
-| Package                                    | `humanqa@0.1.0`                                                            |
-| Compressed size                            | 1,069,827 bytes                                                            |
-| Files                                      | 5                                                                          |
-| Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md` |
-| Runtime dependencies                       | `playwright@1.55.0` only                                                   |
-| Workspace references in published manifest | None                                                                       |
-| CLI version check                          | `0.1.0`                                                                    |
-| Access                                     | Public                                                                     |
-| Provenance                                 | Enabled in manifest and trusted-publishing workflow                        |
+| Property                                   | Observed value                                                              |
+| ------------------------------------------ | --------------------------------------------------------------------------- |
+| Package                                    | `humanqa@0.1.0`                                                             |
+| Compressed size                            | 1,069,827 bytes                                                             |
+| Files                                      | 5                                                                           |
+| Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md`  |
+| Runtime dependencies                       | `playwright@1.55.0` only                                                    |
+| Workspace references in published manifest | None                                                                        |
+| CLI version check                          | `0.1.0`                                                                     |
+| Access                                     | Public                                                                      |
+| Registry checksum                          | `ef45c025ebaaa6c6d540782021aa149ba926c8a0`                                  |
+| Registry install                           | Pass from a clean scratch directory                                         |
+| Provenance                                 | Bootstrap publish local; future releases use the trusted-publisher workflow |
 
 The archive validator also rejects source trees, `node_modules`, `.env` files, HumanQA output, missing license/readme/bin files, workspace references, unexpected runtime dependencies, archives above 3 MB, and a missing executable shebang.
 
@@ -75,10 +80,7 @@ Visual evidence:
 
 ## External handoff
 
-1. Sign in with `npm login`, reserve `humanqa` with the first release if it is still available, then configure the GitHub Actions trusted publisher for repository `Hotragn/humanqa` and workflow `publish-npm.yml`.
-2. Publish through a GitHub release or the manual workflow. Do not bypass `pnpm release:validate`.
-
-Package availability was checked on 2026-08-18 and returned npm `E404`; that is evidence that no package was visible at that moment, not a permanent reservation.
+Configure the npm trusted publisher for repository `Hotragn/humanqa` and workflow `publish-npm.yml` before the next version. Future releases should be published through GitHub so npm can attach OIDC provenance; the workflow is idempotent and will safely skip a version that is already present.
 
 ## Reproduction
 
@@ -90,4 +92,4 @@ pnpm release:validate
 pnpm site:validation-shots
 ```
 
-The local browser-plugin preview path was unavailable because its trusted RPC dependency was outside the configured trusted code path. Visual and interaction validation therefore used the repository's standalone Playwright/Chromium harness. No browser assertion was skipped or weakened because of that integration failure.
+The live Vercel deployment and GitHub README were also checked in a signed-in isolated Chromium session: both routes loaded, documentation search and navigation worked, the report image rendered, the original logo and icon rendered in the README, and the page had no horizontal overflow.
