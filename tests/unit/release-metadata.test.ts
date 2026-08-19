@@ -17,7 +17,7 @@ describe("release metadata", () => {
     expect(manifest["private"]).not.toBe(true);
     expect(manifest["bin"]).toEqual({ humanqa: "./dist/bin.cjs" });
     expect(manifest["files"]).toEqual(["dist", "README.md", "LICENSE"]);
-    expect(manifest["dependencies"]).toEqual({ playwright: "1.55.0" });
+    expect(manifest["dependencies"]).toEqual({ playwright: "1.55.1" });
     expect(JSON.stringify(manifest["devDependencies"])).toContain("workspace:*");
     expect(manifest["publishConfig"]).toEqual({ access: "public", provenance: true });
 

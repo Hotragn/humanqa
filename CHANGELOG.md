@@ -4,6 +4,13 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-19
+
+### Security
+
+- Updated Playwright from 1.55.0 to 1.55.1 to address GHSA-7mvr-c777-76hp in the browser-download certificate verification path.
+- Added a clean public-registry production audit to the release validation evidence for both published package names.
+
 ## [0.1.2] - 2026-08-19
 
 ### Added
@@ -45,7 +52,8 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 
 - Local-first defaults, common text redaction, screenshot opt-out, offline loopback mode, high-impact action blocking, and explicit external-adapter consent boundary.
 
-[Unreleased]: https://github.com/Hotragn/humanqa/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/Hotragn/humanqa/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/Hotragn/humanqa/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/Hotragn/humanqa/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/Hotragn/humanqa/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/Hotragn/humanqa/releases/tag/v0.1.0
