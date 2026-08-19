@@ -36,7 +36,7 @@
     "site:preview": "pnpm --filter @humanqa/site preview",
     "pack:cli": "node scripts/pack-cli.mjs",
     "release:validate": "pnpm check && pnpm build && pnpm pack:cli && node scripts/validate-release.mjs",
-    "release:publish": "pnpm --dir apps/cli publish --access public --provenance --no-git-checks",
+    "release:publish": "node scripts/publish-release.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

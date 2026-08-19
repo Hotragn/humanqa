@@ -43,6 +43,7 @@ describe("release metadata", () => {
   it("keeps website and npm deployments explicit and provenance-aware", async () => {
     const vercel = await json("apps/site/vercel.json");
     const npm = await readFile(join(root, ".github/workflows/publish-npm.yml"), "utf8");
+    const publisher = await readFile(join(root, "scripts/publish-release.mjs"), "utf8");
     const rootManifest = await json("package.json");
     const scripts = rootManifest["scripts"] as Record<string, string>;
     expect(vercel["framework"]).toBe("vite");
@@ -51,7 +52,7 @@ describe("release metadata", () => {
     expect(npm).toContain("id-token: write");
     expect(npm).toContain("pnpm release:validate");
     expect(npm).toContain("pnpm release:publish");
-    expect(scripts["release:publish"]).toContain("publish --access public --provenance");
-    expect(scripts["release:publish"]).toContain("--no-git-checks");
+    expect(scripts["release:publish"]).toBe("node scripts/publish-release.mjs");
+    expect(publisher).toContain('["publish", archive, "--access", "public", "--provenance"]');
   });
 });
