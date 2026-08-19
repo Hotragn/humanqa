@@ -52,5 +52,6 @@ describe("release metadata", () => {
     expect(npm).toContain("pnpm release:validate");
     expect(npm).toContain("pnpm release:publish");
     expect(scripts["release:publish"]).toContain("publish --access public --provenance");
+    expect(scripts["release:publish"]).toContain("--no-git-checks");
   });
 });
