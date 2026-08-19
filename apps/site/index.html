@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f2f0e8" />
+    <meta name="application-name" content="HumanQA" />
+    <meta name="theme-color" content="#f2f0e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#191b18" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="HumanQA turns declared web journeys into browser evidence, deterministic findings, release decisions, and Playwright regression scaffolds."
@@ -18,7 +20,9 @@
     <meta property="og:image" content="https://humanqa-nine.vercel.app/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://humanqa-nine.vercel.app/" />
-    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="mask-icon" href="/icon.svg" color="#191b18" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>HumanQA | Evidence-first product quality checks</title>
   </head>
   <body>
@@ -77,7 +81,7 @@
       <section class="proof-ledger" aria-label="Validated project facts">
         <div class="shell ledger-grid">
           <p>Validated locally on Chromium</p>
-          <strong>26 unit tests</strong>
+          <strong>29 unit tests</strong>
           <strong>27 starter packs</strong>
           <strong>5 agent skills</strong>
           <strong>0 required API keys</strong>
@@ -191,6 +195,11 @@
           <p class="eyebrow">Local-first setup</p>
           <h2>Install once. Turn URLs into proof.</h2>
           <p>No hosted account, telemetry, or model key is required.</p>
+          <p>
+            Use the short <code>humanqa</code> package or the official
+            <a href="https://www.npmjs.com/package/@humanqa/cli"><code>@humanqa/cli</code></a>
+            organization package.
+          </p>
         </div>
         <div class="command-panel" data-reveal>
           <div class="command-top">
@@ -234,7 +243,7 @@ npx humanqa audit http://127.0.0.1:4173 --journey packs/journeys/saas-project-cr
       </div>
       <nav aria-label="Footer navigation">
         <a href="./docs/">Documentation</a><a href="https://github.com/Hotragn/humanqa">GitHub</a
-        ><a href="https://www.npmjs.com/package/humanqa">npm</a
+        ><a href="https://www.npmjs.com/package/@humanqa/cli">npm organization</a
         ><a href="mailto:security@humanqa.dev">Security</a>
       </nav>
       <p class="copyright">

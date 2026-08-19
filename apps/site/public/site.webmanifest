@@ -1,0 +1,18 @@
+{
+  "name": "HumanQA",
+  "short_name": "HumanQA",
+  "description": "Evidence-first product quality checks for web apps.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2f0e8",
+  "theme_color": "#191b18",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ async function json(path: string): Promise<Record<string, unknown>> {
 }
 
 describe("release metadata", () => {
-  it("publishes one standalone public CLI package", async () => {
+  it("publishes one standalone CLI under its direct and organization names", async () => {
     const manifest = await json("apps/cli/package.json");
     expect(manifest["name"]).toBe("humanqa");
     expect(manifest["private"]).not.toBe(true);
@@ -20,6 +20,9 @@ describe("release metadata", () => {
     expect(manifest["dependencies"]).toEqual({ playwright: "1.55.0" });
     expect(JSON.stringify(manifest["devDependencies"])).toContain("workspace:*");
     expect(manifest["publishConfig"]).toEqual({ access: "public", provenance: true });
+
+    const packer = await readFile(join(root, "scripts/pack-cli.mjs"), "utf8");
+    expect(packer).toContain('const scopedName = "@humanqa/cli"');
   });
 
   it("protects every bundled internal package from accidental publication", async () => {
@@ -53,6 +56,7 @@ describe("release metadata", () => {
     expect(npm).toContain("pnpm release:validate");
     expect(npm).toContain("pnpm release:publish");
     expect(scripts["release:publish"]).toBe("node scripts/publish-release.mjs");
-    expect(publisher).toContain('["publish", archive, "--access", "public", "--provenance"]');
+    expect(publisher).toContain('name: "@humanqa/cli"');
+    expect(publisher).toContain('"--provenance"');
   });
 });

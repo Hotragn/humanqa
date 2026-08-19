@@ -36,6 +36,23 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       await page.goto(baseUrl, { waitUntil: "networkidle" });
 
       await expect(page.title()).resolves.toContain("HumanQA");
+      await expect(page.locator('link[rel="icon"]').getAttribute("href")).resolves.toBe(
+        "/icon.svg"
+      );
+      await expect(page.locator('link[rel="manifest"]').getAttribute("href")).resolves.toBe(
+        "/site.webmanifest"
+      );
+
+      const iconResponse = await page.request.get(`${baseUrl}/icon.svg`);
+      expect(iconResponse.ok()).toBe(true);
+      expect(iconResponse.headers()["content-type"]).toContain("image/svg+xml");
+
+      const manifestResponse = await page.request.get(`${baseUrl}/site.webmanifest`);
+      expect(manifestResponse.ok()).toBe(true);
+      expect(await manifestResponse.json()).toMatchObject({
+        name: "HumanQA",
+        icons: [{ src: "/icon.svg", type: "image/svg+xml" }]
+      });
       await expect(page.getByRole("heading", { level: 1 }).textContent()).resolves.toContain(
         "Know what broke"
       );
@@ -72,6 +89,10 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       const page = await context.newPage();
       await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
       await page.goto(`${baseUrl}/docs/`, { waitUntil: "networkidle" });
+
+      await expect(page.locator('link[rel="icon"]').getAttribute("href")).resolves.toBe(
+        "/icon.svg"
+      );
 
       await page.keyboard.press("Tab");
       expect(await page.locator(":focus").textContent()).toContain("Skip to documentation");

@@ -1,6 +1,6 @@
 {
   "name": "humanqa",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Evidence-first product quality checks for web apps",
   "type": "module",
   "license": "Apache-2.0",

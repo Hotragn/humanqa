@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f2f0e8" />
+    <meta name="application-name" content="HumanQA" />
+    <meta name="theme-color" content="#f2f0e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#191b18" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="HumanQA documentation for safe audits, quality contracts, reports, packs, and CI."
@@ -18,7 +20,9 @@
     <meta property="og:image" content="https://humanqa-nine.vercel.app/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://humanqa-nine.vercel.app/docs/" />
-    <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="mask-icon" href="/icon.svg" color="#191b18" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>Documentation | HumanQA</title>
   </head>
   <body class="docs-page">
@@ -320,12 +324,13 @@ pnpm humanqa validate-pack path/to/new-pack.yaml</code></pre>
             </div>
           </div>
           <div class="release-sequence">
-            <span>pnpm release:validate</span><span>npm login</span
-            ><span>pnpm release:publish</span>
+            <span>pnpm release:validate</span><span>GitHub trusted publisher</span
+            ><span>humanqa + @humanqa/cli</span>
           </div>
           <p>
-            The publish command requires an explicit maintainer action. CI validation never
-            publishes, creates tags, or writes GitHub releases by itself.
+            The short package preserves <code>npx humanqa</code>; the same validated bundle is
+            published under the HumanQA npm organization as <code>@humanqa/cli</code>. A release or
+            manual publish workflow action is still required.
           </p>
         </section>
       </article>
@@ -338,7 +343,7 @@ pnpm humanqa validate-pack path/to/new-pack.yaml</code></pre>
       </div>
       <nav aria-label="Footer navigation">
         <a href="../">Product</a><a href="https://github.com/Hotragn/humanqa">GitHub</a
-        ><a href="https://www.npmjs.com/package/humanqa">npm</a>
+        ><a href="https://www.npmjs.com/package/@humanqa/cli">npm organization</a>
       </nav>
       <p class="copyright">
         Apache-2.0<br />Copyright <span data-year></span> HumanQA contributors

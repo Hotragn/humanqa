@@ -37,7 +37,7 @@ import { writeGeneratedTest } from "@humanqa/test-generator";
 
 import { formatCliError, installChromiumBrowser } from "./runtime.js";
 
-const cliVersion = "0.1.1";
+const cliVersion = "0.1.2";
 const repositoryRoot = process.cwd();
 
 interface AuditOptions {

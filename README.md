@@ -9,6 +9,7 @@
 
 [![CI](https://github.com/Hotragn/humanqa/actions/workflows/ci.yml/badge.svg)](https://github.com/Hotragn/humanqa/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/humanqa?label=npm)](https://www.npmjs.com/package/humanqa)
+[![npm org](https://img.shields.io/npm/v/%40humanqa%2Fcli?label=%40humanqa%2Fcli)](https://www.npmjs.com/package/@humanqa/cli)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-17643b.svg)](CONTRIBUTING.md)
 
@@ -27,6 +28,8 @@ Turn product requirements and live user journeys into:
 npx humanqa install-browser
 npx humanqa verify --config humanqa.yml
 ```
+
+`humanqa` keeps the memorable `npx humanqa` command. The identical official CLI is also published as [`@humanqa/cli`](https://www.npmjs.com/package/@humanqa/cli) under the HumanQA npm organization.
 
 > From “we think it works” to “here is the trace, evidence, and regression test.”
 

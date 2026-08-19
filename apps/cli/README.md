@@ -11,6 +11,13 @@ npm install --global humanqa
 humanqa doctor
 ```
 
+The same validated CLI is also available from the HumanQA npm organization:
+
+```bash
+npm install --global @humanqa/cli
+humanqa doctor
+```
+
 Install the version-matched Chromium runtime once:
 
 ```bash
