@@ -24,4 +24,18 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm release:validate
-      - run: pnpm release:publish
+      - name: Check whether this version is already published
+        id: registry
+        shell: bash
+        run: |
+          package_name="$(node -p "require('./apps/cli/package.json').name")"
+          package_version="$(node -p "require('./apps/cli/package.json').version")"
+          if npm view "${package_name}@${package_version}" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "${package_name}@${package_version} is already on npm; skipping duplicate publish."
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Publish package with provenance
+        if: steps.registry.outputs.published != 'true'
+        run: pnpm release:publish
