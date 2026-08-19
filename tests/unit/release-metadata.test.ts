@@ -41,12 +41,13 @@ describe("release metadata", () => {
   });
 
   it("keeps website and npm deployments explicit and provenance-aware", async () => {
-    const pages = await readFile(join(root, ".github/workflows/deploy-site.yml"), "utf8");
+    const vercel = await json("apps/site/vercel.json");
     const npm = await readFile(join(root, ".github/workflows/publish-npm.yml"), "utf8");
     const rootManifest = await json("package.json");
     const scripts = rootManifest["scripts"] as Record<string, string>;
-    expect(pages).toContain("actions/deploy-pages@v4");
-    expect(pages).toContain("pages: write");
+    expect(vercel["framework"]).toBe("vite");
+    expect(vercel["buildCommand"]).toBe("pnpm build");
+    expect(vercel["outputDirectory"]).toBe("dist");
     expect(npm).toContain("id-token: write");
     expect(npm).toContain("pnpm release:validate");
     expect(npm).toContain("pnpm release:publish");

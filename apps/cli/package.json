@@ -5,7 +5,7 @@
   "type": "module",
   "license": "Apache-2.0",
   "author": "HumanQA contributors",
-  "homepage": "https://hotragn.github.io/humanqa/",
+  "homepage": "https://humanqa-nine.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hotragn/humanqa.git",

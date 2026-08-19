@@ -1,3 +1,10 @@
+<p align="center">
+  <img src="apps/site/public/icon.svg" alt="HumanQA evidence aperture icon" width="88" height="88" />
+</p>
+<p align="center">
+  <img src="docs/assets/humanqa-logo.svg" alt="HumanQA: Evidence before opinion" width="620" />
+</p>
+
 # HumanQA
 
 [![CI](https://github.com/Hotragn/humanqa/actions/workflows/ci.yml/badge.svg)](https://github.com/Hotragn/humanqa/actions/workflows/ci.yml)
@@ -7,7 +14,7 @@
 
 **Evidence-first product quality checks for web apps.**
 
-[Website](https://hotragn.github.io/humanqa/) · [Documentation](https://hotragn.github.io/humanqa/docs/) · [Validation report](docs/validation/release-validation.md) · [Brand system](docs/brand-system.md)
+[Website](https://humanqa-nine.vercel.app/) · [Documentation](https://humanqa-nine.vercel.app/docs/) · [Validation report](docs/validation/release-validation.md) · [Brand system](docs/brand-system.md)
 
 Turn product requirements and live user journeys into:
 

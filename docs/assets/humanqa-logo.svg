@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="title description">
+  <title id="title">HumanQA</title>
+  <desc id="description">HumanQA evidence aperture logo and Evidence before opinion wordmark.</desc>
+  <rect width="720" height="180" rx="18" fill="#f2f0e8"/>
+  <g transform="translate(42 42)">
+    <path d="M0 0h54l27 27v54H27L0 54V0Z" fill="none" stroke="#191b18" stroke-width="8" stroke-linejoin="round"/>
+    <path d="m81 27 27-27v54L81 81V27Z" fill="#ed5b2a"/>
+    <path d="M27 31h27M27 50h27" stroke="#191b18" stroke-width="8" stroke-linecap="square"/>
+  </g>
+  <text x="184" y="88" fill="#191b18" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="800" letter-spacing="-2">HumanQA</text>
+  <text x="188" y="124" fill="#9f3210" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16" font-weight="700" letter-spacing="3">EVIDENCE BEFORE OPINION</text>
+</svg>
