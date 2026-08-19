@@ -1,14 +1,14 @@
-# HumanQA v0.1 release validation
+# HumanQA v0.1.1 release validation
 
 **Validated:** 2026-08-19
 
-**Disposition:** Public repository, Vercel production site, and `humanqa@0.1.0` npm package live
+**Disposition:** Public repository, Vercel production site, GitHub `v0.1.1` release, and provenance-attested `humanqa@0.1.1` npm package live
 
 **Scope:** CLI package, deterministic audit vertical slice, starter packs, marketing site, documentation site, release automation, and hosting artifact
 
 ## Executive result
 
-The local source and generated artifacts passed the complete `pnpm release:validate` gate. The npm archive contains only the five intended files and reports a working `humanqa 0.1.0` executable. The exact validated archive was published to npm, its registry checksum matches the local artifact, and a clean public-registry install passed version and help-command smoke tests. The website passed desktop, mobile, keyboard, search, responsive-overflow, original-icon-family, and automated accessibility checks in light and dark color schemes.
+The local source and generated artifacts passed the complete `pnpm release:validate` gate. The npm archive contains only the five intended files and reports a working `humanqa 0.1.1` executable. GitHub Actions rebuilt and revalidated the package, then published that exact CI archive through npm trusted-publisher OIDC. A clean public-registry install passed version, browser-installer, and production-audit smoke tests. The website passed desktop, mobile, keyboard, search, responsive-overflow, original-icon-family, and automated accessibility checks in light and dark color schemes.
 
 The validated source is public at `Hotragn/humanqa`, the production website is live at `https://humanqa-nine.vercel.app`, and the package is public at `https://www.npmjs.com/package/humanqa`.
 
@@ -19,14 +19,14 @@ The validated source is public at `Hotragn/humanqa`, the production website is l
 | Prettier              | Pass, all matched files formatted                                       |
 | ESLint                | Pass, zero errors                                                       |
 | TypeScript            | Pass, strict no-emit type check                                         |
-| Unit tests            | Pass, 26 of 26 across 7 files                                           |
+| Unit tests            | Pass, 29 of 29 across 8 files                                           |
 | Pack contracts        | Pass, 3 of 3                                                            |
 | Browser E2E           | Pass, 6 of 6 across 2 files                                             |
 | Library and CLI build | Pass, 10 internal ESM packages plus bundled CJS CLI                     |
 | Demo fixture build    | Pass, Vite 7 production build                                           |
 | Website build         | Pass, Vite 8 production build with Sites metadata and worker entrypoint |
 | npm archive validator | Pass, status `publish-ready`                                            |
-| Public npm smoke test | Pass, clean install plus `--version` and `--help` execution             |
+| Public npm smoke test | Pass, install, version, browser setup, and production audit             |
 
 ## Behavioral evidence
 
@@ -35,6 +35,7 @@ The end-to-end suite exercised rather than mocked the following paths:
 - broken fixture audit: produces `Block release`, score 0/100, and 8 deterministic findings;
 - fixed fixture audit: produces `Informational`, score 100/100, and 0 findings;
 - generated regression: runs the evidence-derived Playwright test against the fixed fixture;
+- first-use browser setup: with an intentionally empty Playwright cache, the CLI emits the exact recovery command, `humanqa install-browser` installs the version-matched Chromium runtime, and the next audit succeeds;
 - public-package self-audit: a clean registry install audited `https://humanqa-nine.vercel.app` in safe, redacted, conservative-inspection mode and produced `Informational`, score 100/100, 0 findings, 0 console errors, and 0 automated Axe violations;
 - marketing site: loads real fixture-report imagery, renders at least 18 glyph instances with at least 10 distinct glyph geometries, has no desktop horizontal overflow, and returns zero automated Axe violations;
 - documentation site: keyboard focus reaches the skip link first, documentation search filters to the matching section, and light and dark modes return zero automated Axe violations;
@@ -44,21 +45,23 @@ Automated Axe results are bounded evidence, not a claim of complete WCAG conform
 
 ## npm package inspection
 
-Archive: `release-artifacts/humanqa-0.1.0.tgz`
+Archive: `release-artifacts/humanqa-0.1.1.tgz`
 
 | Property                                   | Observed value                                                             |
 | ------------------------------------------ | -------------------------------------------------------------------------- |
-| Package                                    | `humanqa@0.1.0`                                                            |
-| Compressed size                            | 1,069,827 bytes                                                            |
+| Package                                    | `humanqa@0.1.1`                                                            |
+| Compressed size                            | 1,071,626 bytes                                                            |
 | Files                                      | 5                                                                          |
 | Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md` |
 | Runtime dependencies                       | `playwright@1.55.0` only                                                   |
 | Workspace references in published manifest | None                                                                       |
-| CLI version check                          | `0.1.0`                                                                    |
+| CLI version check                          | `0.1.1`                                                                    |
 | Access                                     | Public                                                                     |
-| Registry checksum                          | `ef45c025ebaaa6c6d540782021aa149ba926c8a0`                                 |
+| Registry checksum                          | `3a0e6ee45a14c606899b78262b997b6b1771574a`                                 |
 | Registry install                           | Pass from a clean scratch directory                                        |
-| Provenance                                 | Bootstrap publish local; trusted publisher configured for future releases  |
+| Browser bootstrap                          | Pass with package-local Playwright CLI and isolated browser cache          |
+| Production self-audit                      | `Informational`, score 100/100, 0 findings                                 |
+| Provenance                                 | SLSA provenance v1 attestation from GitHub Actions OIDC                    |
 
 The archive validator also rejects source trees, `node_modules`, `.env` files, HumanQA output, missing license/readme/bin files, workspace references, unexpected runtime dependencies, archives above 3 MB, and a missing executable shebang.
 
@@ -88,7 +91,7 @@ The npm trusted publisher is configured for repository `Hotragn/humanqa`, workfl
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
-pnpm exec playwright install chromium
+pnpm humanqa install-browser
 pnpm release:validate
 pnpm site:validation-shots
 ```
