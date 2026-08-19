@@ -35,6 +35,7 @@ The end-to-end suite exercised rather than mocked the following paths:
 - broken fixture audit: produces `Block release`, score 0/100, and 8 deterministic findings;
 - fixed fixture audit: produces `Informational`, score 100/100, and 0 findings;
 - generated regression: runs the evidence-derived Playwright test against the fixed fixture;
+- public-package self-audit: a clean registry install audited `https://humanqa-nine.vercel.app` in safe, redacted, conservative-inspection mode and produced `Informational`, score 100/100, 0 findings, 0 console errors, and 0 automated Axe violations;
 - marketing site: loads real fixture-report imagery, renders at least 18 glyph instances with at least 10 distinct glyph geometries, has no desktop horizontal overflow, and returns zero automated Axe violations;
 - documentation site: keyboard focus reaches the skip link first, documentation search filters to the matching section, and light and dark modes return zero automated Axe violations;
 - mobile site: navigation expands with correct ARIA state and both main and docs routes remain within a 390 px viewport.
@@ -45,19 +46,19 @@ Automated Axe results are bounded evidence, not a claim of complete WCAG conform
 
 Archive: `release-artifacts/humanqa-0.1.0.tgz`
 
-| Property                                   | Observed value                                                              |
-| ------------------------------------------ | --------------------------------------------------------------------------- |
-| Package                                    | `humanqa@0.1.0`                                                             |
-| Compressed size                            | 1,069,827 bytes                                                             |
-| Files                                      | 5                                                                           |
-| Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md`  |
-| Runtime dependencies                       | `playwright@1.55.0` only                                                    |
-| Workspace references in published manifest | None                                                                        |
-| CLI version check                          | `0.1.0`                                                                     |
-| Access                                     | Public                                                                      |
-| Registry checksum                          | `ef45c025ebaaa6c6d540782021aa149ba926c8a0`                                  |
-| Registry install                           | Pass from a clean scratch directory                                         |
-| Provenance                                 | Bootstrap publish local; future releases use the trusted-publisher workflow |
+| Property                                   | Observed value                                                             |
+| ------------------------------------------ | -------------------------------------------------------------------------- |
+| Package                                    | `humanqa@0.1.0`                                                            |
+| Compressed size                            | 1,069,827 bytes                                                            |
+| Files                                      | 5                                                                          |
+| Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md` |
+| Runtime dependencies                       | `playwright@1.55.0` only                                                   |
+| Workspace references in published manifest | None                                                                       |
+| CLI version check                          | `0.1.0`                                                                    |
+| Access                                     | Public                                                                     |
+| Registry checksum                          | `ef45c025ebaaa6c6d540782021aa149ba926c8a0`                                 |
+| Registry install                           | Pass from a clean scratch directory                                        |
+| Provenance                                 | Bootstrap publish local; trusted publisher configured for future releases  |
 
 The archive validator also rejects source trees, `node_modules`, `.env` files, HumanQA output, missing license/readme/bin files, workspace references, unexpected runtime dependencies, archives above 3 MB, and a missing executable shebang.
 
@@ -78,9 +79,9 @@ Visual evidence:
 - npm publishing uses Node 24, npm trusted-publisher OIDC permissions, the complete release gate, public access, and provenance. No long-lived npm token is stored in the workflow.
 - All internal workspace packages are marked private. Only `apps/cli` is publishable.
 
-## External handoff
+## Release handoff
 
-Configure the npm trusted publisher for repository `Hotragn/humanqa` and workflow `publish-npm.yml` before the next version. Future releases should be published through GitHub so npm can attach OIDC provenance; the workflow is idempotent and will safely skip a version that is already present.
+The npm trusted publisher is configured for repository `Hotragn/humanqa`, workflow `publish-npm.yml`, GitHub environment `npm`, and publish-only permission. Future versions should be published through GitHub so npm can attach OIDC provenance; the workflow is idempotent and safely skips a version that is already present.
 
 ## Reproduction
 
