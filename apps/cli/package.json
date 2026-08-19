@@ -1,0 +1,56 @@
+{
+  "name": "humanqa",
+  "version": "0.1.0",
+  "description": "Evidence-first product quality checks for web apps",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "HumanQA contributors",
+  "homepage": "https://hotragn.github.io/humanqa/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hotragn/humanqa.git",
+    "directory": "apps/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/Hotragn/humanqa/issues"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "qa",
+    "accessibility",
+    "ux-testing",
+    "quality-engineering",
+    "release-gate",
+    "agent-skills"
+  ],
+  "bin": {
+    "humanqa": "./dist/bin.cjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "dependencies": {
+    "playwright": "1.55.0"
+  },
+  "devDependencies": {
+    "@humanqa/browser": "workspace:*",
+    "@humanqa/core": "workspace:*",
+    "@humanqa/github": "workspace:*",
+    "@humanqa/pack-sdk": "workspace:*",
+    "@humanqa/reporters": "workspace:*",
+    "@humanqa/scorer": "workspace:*",
+    "@humanqa/test-generator": "workspace:*",
+    "commander": "14.0.0",
+    "yaml": "2.8.1"
+  }
+}

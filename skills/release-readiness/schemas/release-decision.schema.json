@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanQA release-readiness decision",
+  "type": "object",
+  "required": [
+    "decision",
+    "scope",
+    "blocking_evidence",
+    "owner_actions",
+    "limitations",
+    "manual_review"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": [
+        "block-release",
+        "fix-before-launch",
+        "conditional-go",
+        "go-automated-scope",
+        "insufficient-evidence",
+        "hold-for-review"
+      ]
+    },
+    "scope": { "type": "array", "items": { "type": "string" } },
+    "blocking_evidence": { "type": "array", "items": { "type": "string" } },
+    "owner_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["owner", "action", "review_date"],
+        "properties": {
+          "owner": { "type": "string" },
+          "action": { "type": "string" },
+          "review_date": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "override": {
+      "type": "object",
+      "required": ["owner", "rationale", "review_date", "monitoring"],
+      "properties": {
+        "owner": { "type": "string" },
+        "rationale": { "type": "string" },
+        "review_date": { "type": "string", "format": "date" },
+        "monitoring": { "type": "string" }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "manual_review": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  }
+}

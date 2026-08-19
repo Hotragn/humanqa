@@ -1,0 +1,29 @@
+name: Integration request
+description: Request a bounded external tool or workflow integration.
+title: "integration: "
+labels: [integration]
+body:
+  - type: input
+    id: system
+    attributes: { label: System and workflow }
+    validations: { required: true }
+  - type: textarea
+    id: job
+    attributes: { label: Painful current workflow }
+    validations: { required: true }
+  - type: textarea
+    id: direction
+    attributes: { label: Minimum data flow, description: What enters and leaves HumanQA? }
+    validations: { required: true }
+  - type: textarea
+    id: auth
+    attributes: { label: Authentication, permissions, and dry-run behavior }
+    validations: { required: true }
+  - type: textarea
+    id: privacy
+    attributes: { label: Artifact privacy, retention, and consent }
+    validations: { required: true }
+  - type: textarea
+    id: fallback
+    attributes: { label: Useful local behavior without the integration }
+    validations: { required: true }

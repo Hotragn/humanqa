@@ -1,0 +1,12 @@
+kind: product-framework
+id: jobs-to-be-done
+name: Jobs to Be Done finding context
+description: Frames a finding around the declared progress a user is trying to make without inventing motivations.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [product, jtbd, context]
+definition:
+  fields: [declared_job, triggering_context, blocked_progress, evidence, uncertainty]
+  evidence_rule: The declared job comes from user input or a reviewed contract, never automated inference.
+  output_use: Product review context attached to an existing evidence-backed finding

@@ -1,0 +1,13 @@
+kind: heuristic
+id: responsive-integrity
+name: Responsive layout integrity
+description: Observable overflow and clipping checks for the viewport declared by the audit configuration.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [responsive, mobile, overflow]
+definition:
+  rules: [responsive-horizontal-overflow]
+  desktop_viewport: 1440x900
+  mobile_viewport: 390x844
+  manual_review: [intentional scroll regions, zoom behavior, device chrome]

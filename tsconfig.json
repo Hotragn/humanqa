@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "useUnknownInCatchVariables": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": ["node", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@humanqa/core": ["packages/core/src/index.ts"],
+      "@humanqa/browser": ["packages/browser/src/index.ts"],
+      "@humanqa/accessibility": ["packages/accessibility/src/index.ts"],
+      "@humanqa/heuristics": ["packages/heuristics/src/index.ts"],
+      "@humanqa/scorer": ["packages/scorer/src/index.ts"],
+      "@humanqa/reporters": ["packages/reporters/src/index.ts"],
+      "@humanqa/test-generator": ["packages/test-generator/src/index.ts"],
+      "@humanqa/pack-sdk": ["packages/pack-sdk/src/index.ts"],
+      "@humanqa/github": ["packages/github/src/index.ts"],
+      "@humanqa/llm-adapters": ["packages/llm-adapters/src/index.ts"]
+    }
+  },
+  "include": ["apps/**/*.ts", "packages/**/*.ts", "tests/**/*.ts", "examples/**/*.ts", "*.ts"],
+  "exclude": ["node_modules", "dist", "humanqa-output", "examples/**/generated"]
+}

@@ -1,0 +1,34 @@
+project:
+  name: Example Ecommerce
+  baseUrl: http://127.0.0.1:3001
+defaults:
+  safeMode: true
+  redact: true
+  screenshots: true
+  browser: chromium
+  offline: false
+  viewport: { width: 390, height: 844 }
+  mobile: true
+quality_contracts:
+  - id: cart-feedback
+    name: Local cart update is visible
+    persona: ecommerce-buyer
+    journey: ../../packs/journeys/ecommerce-add-to-cart.yaml
+    acceptance_criteria:
+      - Product identity is visible before cart interaction
+      - Cart update has visible confirmation
+    thresholds:
+      max_duration_seconds: 60
+      max_critical_findings: 0
+      min_quality_score: 85
+  - id: checkout-review-boundary
+    name: Checkout is inspectable without purchase
+    persona: ecommerce-buyer
+    journey: ../../packs/journeys/checkout-review-only.yaml
+    acceptance_criteria:
+      - User can review the order before any payment action
+      - Order total is visible in the review state
+    thresholds:
+      max_duration_seconds: 60
+      max_critical_findings: 0
+      min_quality_score: 85

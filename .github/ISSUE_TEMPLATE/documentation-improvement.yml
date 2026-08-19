@@ -1,0 +1,32 @@
+name: Documentation improvement
+description: Improve clarity, accuracy, onboarding, accessibility, or examples.
+title: "docs: "
+labels: [documentation]
+body:
+  - type: input
+    id: page
+    attributes: { label: Page or section }
+    validations: { required: true }
+  - type: textarea
+    id: audience
+    attributes: { label: Reader and task }
+    validations: { required: true }
+  - type: textarea
+    id: problem
+    attributes: { label: What is inaccurate, inaccessible, or confusing? }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes: { label: Reproduction or reader evidence }
+    validations: { required: true }
+  - type: textarea
+    id: outcome
+    attributes: { label: Acceptance criteria }
+    validations: { required: true }
+  - type: checkboxes
+    id: claims
+    attributes:
+      label: Claim check
+      options:
+        - label: The proposal does not invent users, adoption, testimonials, benchmarks, performance, security, or compliance claims.
+          required: true

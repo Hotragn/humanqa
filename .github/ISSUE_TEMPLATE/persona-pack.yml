@@ -1,0 +1,32 @@
+name: Persona pack
+description: Propose a declared context that avoids stereotypes and simulated research claims.
+title: "pack(persona): "
+labels: ["pack:persona"]
+body:
+  - type: input
+    id: pack_id
+    attributes: { label: Proposed kebab-case ID }
+    validations: { required: true }
+  - type: textarea
+    id: job
+    attributes: { label: Declared goals and constraints }
+    validations: { required: true }
+  - type: textarea
+    id: evidence_focus
+    attributes: { label: Observable evidence focus }
+    validations: { required: true }
+  - type: textarea
+    id: boundaries
+    attributes: { label: Stereotype, safety, and manual-review boundaries }
+    validations: { required: true }
+  - type: textarea
+    id: fixtures
+    attributes: { label: Starter journeys or fixtures }
+    validations: { required: true }
+  - type: checkboxes
+    id: original
+    attributes:
+      label: Contribution confirmation
+      options:
+        - label: I can submit original Apache-2.0-compatible text with author attribution.
+          required: true

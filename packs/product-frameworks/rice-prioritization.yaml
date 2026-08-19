@@ -1,0 +1,14 @@
+kind: product-framework
+id: rice-prioritization
+name: RICE prioritization mapping
+description: Maps evidence-backed findings to transparent reach, impact, confidence, and effort inputs.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [product, prioritization, rice]
+definition:
+  formula: (reach * impact * confidence) / max(effort, 1)
+  reach_scope: Declared journey exposure, not measured production traffic
+  impact_scale: { 1: minimal, 2: low, 3: moderate, 4: high, 5: journey-blocking }
+  effort_scale: Relative estimate requiring team review
+  caution: Scores expose assumptions and do not provide objective ordering.

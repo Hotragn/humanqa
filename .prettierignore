@@ -1,0 +1,6 @@
+node_modules
+dist
+humanqa-output
+pnpm-lock.yaml
+examples/**/generated
+apps/demo-dashboard/public

@@ -1,0 +1,16 @@
+{
+  "name": "@humanqa/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4174",
+    "build": "vite build && node scripts/prepare-hosting.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4174"
+  },
+  "devDependencies": {
+    "@openai/sites-vite-plugin": "^0.2.0",
+    "esbuild": "0.27.0",
+    "vite": "8.0.0"
+  }
+}

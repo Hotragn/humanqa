@@ -1,0 +1,14 @@
+{
+  "name": "@humanqa/demo-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "dev:fixed": "vite --host 127.0.0.1 --port 4173 --mode fixed",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "7.1.3"
+  }
+}

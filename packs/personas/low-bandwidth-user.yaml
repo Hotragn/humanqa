@@ -1,0 +1,19 @@
+kind: persona
+id: low-bandwidth-user
+name: Low-bandwidth user
+description: A user exercising a critical route while resource failures and delayed states are made visible and recoverable.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [performance, resilience, network]
+definition:
+  goals:
+    [
+      Understand whether content is loading,
+      recover from failed resources,
+      avoid repeated submissions
+    ]
+  constraints: [Synthetic failure evidence is not a field performance benchmark]
+  evidence_focus:
+    [loading signals, failed resources, blocked content, retry and offline explanation]
+  manual_review: [real-device performance, geographic latency, data cost]

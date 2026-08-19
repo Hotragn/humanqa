@@ -1,0 +1,14 @@
+kind: product-framework
+id: pm-acceptance-criteria
+name: PM acceptance-criteria matrix
+description: Classifies each reviewed criterion as pass, fail, or human review based on explicit evidence mapping.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [product, acceptance-criteria, release]
+definition:
+  statuses: [pass, fail, review]
+  pass_rule: Every explicitly mapped deterministic assertion passed in the exercised state
+  fail_rule: At least one explicitly mapped deterministic assertion failed
+  review_rule: No explicit mapping exists or the criterion requires human judgment
+  caution: Unmapped criteria never pass by implication.

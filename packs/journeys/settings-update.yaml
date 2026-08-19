@@ -1,0 +1,23 @@
+kind: journey
+id: settings-update
+name: Settings validation review
+description: Inspect a settings validation state and verify recovery feedback without persisting changes.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [settings, validation, review-only]
+definition:
+  criticality: 4
+  steps:
+    - action: goto
+      path: /settings
+    - action: assert-visible
+      selector: "[data-error-message]"
+      criterion: Invalid settings have visible error feedback
+      rule: form-error-feedback-missing
+    - action: keyboard-reachable
+      selector: "#workspace-name"
+      criterion: Settings fields are keyboard reachable
+    - action: screenshot
+      name: settings-review-boundary
+      description: Capture validation and high-impact action safeguards without submitting changes

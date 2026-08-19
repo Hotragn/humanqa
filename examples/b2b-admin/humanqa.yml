@@ -1,0 +1,34 @@
+project:
+  name: Example B2B Admin
+  baseUrl: http://127.0.0.1:3002
+defaults:
+  safeMode: true
+  redact: true
+  screenshots: false
+  browser: chromium
+  offline: false
+  viewport: { width: 1440, height: 900 }
+  mobile: false
+quality_contracts:
+  - id: empty-dashboard
+    name: Empty dashboard explains the next action
+    persona: enterprise-evaluator
+    journey: ../../packs/journeys/dashboard-empty-state.yaml
+    acceptance_criteria:
+      - Empty dashboard explains the state
+      - Empty dashboard offers a relevant next action
+    thresholds:
+      max_duration_seconds: 90
+      max_critical_findings: 0
+      min_quality_score: 80
+  - id: settings-validation
+    name: Settings validation is recoverable
+    persona: keyboard-only-user
+    journey: ../../packs/journeys/settings-update.yaml
+    acceptance_criteria:
+      - Invalid settings have visible error feedback
+      - Settings fields are keyboard reachable
+    thresholds:
+      max_duration_seconds: 90
+      max_critical_findings: 0
+      min_quality_score: 80

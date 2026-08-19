@@ -1,0 +1,13 @@
+kind: industry
+id: b2b-admin-dashboards
+name: B2B admin dashboard context
+description: Review context for dense tables, empty states, settings, permissions, and protected administrative actions.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [industry, b2b, admin, dashboard]
+definition:
+  recommended_personas: [returning-user, enterprise-evaluator, keyboard-only-user]
+  recommended_journeys: [dashboard-empty-state, settings-update]
+  evidence_focus: [table semantics, keyboard reachability, state feedback, terminology consistency]
+  high_impact_boundaries: [role changes, revocation, bulk updates, exports, deletion]

@@ -1,0 +1,19 @@
+{
+  "name": "@humanqa/browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@humanqa/accessibility": "workspace:*",
+    "@humanqa/core": "workspace:*",
+    "@humanqa/heuristics": "workspace:*",
+    "playwright": "1.55.0"
+  }
+}

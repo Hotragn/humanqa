@@ -1,0 +1,12 @@
+kind: heuristic
+id: safe-actions
+name: High-impact action safeguards
+description: Advisory inspection of high-impact controls without activating or authorizing them.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [safety, confirmation, undo]
+definition:
+  rules: [high-impact-confirmation-missing, safe-action-blocked]
+  prohibited_default_actions: [purchase, payment, delete, publish, send, upload, account mutation]
+  manual_review: [post-activation confirmation, domain impact, authorization policy]

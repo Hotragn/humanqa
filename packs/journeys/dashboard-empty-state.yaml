@@ -1,0 +1,21 @@
+kind: journey
+id: dashboard-empty-state
+name: Dashboard empty state
+description: Inspect a declared empty dashboard and verify explanation plus a safe next action.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [dashboard, empty-state, saas]
+definition:
+  criticality: 3
+  steps:
+    - action: goto
+      path: /dashboard
+    - action: assert-visible
+      selector: "[data-empty-state]"
+      criterion: Empty dashboard explains the state
+      rule: empty-state-signal-missing
+    - action: assert-visible
+      role: link
+      name: Create project
+      criterion: Empty dashboard offers a relevant next action

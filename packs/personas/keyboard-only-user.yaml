@@ -1,0 +1,14 @@
+kind: persona
+id: keyboard-only-user
+name: Keyboard-only user
+description: A user who completes the declared journey without pointer input and requires visible, logical focus behavior.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [accessibility, keyboard, focus]
+definition:
+  goals:
+    [Reach every required control, understand focus position, activate actions from the keyboard]
+  constraints: [No pointer input, bounded automated traversal is incomplete]
+  evidence_focus: [focus order, focus visibility, traps, semantic controls, skip paths]
+  manual_review: [logical focus order, screen-reader interaction, composite widgets]

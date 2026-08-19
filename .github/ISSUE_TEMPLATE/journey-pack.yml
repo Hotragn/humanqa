@@ -1,0 +1,36 @@
+name: Journey pack
+description: Propose a safe, fixture-testable declared browser journey.
+title: "pack(journey): "
+labels: ["pack:journey", playwright]
+body:
+  - type: input
+    id: pack_id
+    attributes: { label: Proposed kebab-case ID }
+    validations: { required: true }
+  - type: textarea
+    id: goal
+    attributes: { label: User goal and painful job }
+    validations: { required: true }
+  - type: textarea
+    id: steps
+    attributes: { label: Safe declared steps and assertions }
+    validations: { required: true }
+  - type: textarea
+    id: criteria
+    attributes: { label: Acceptance criteria mapping }
+    validations: { required: true }
+  - type: textarea
+    id: safety
+    attributes: { label: Mutation boundary and disposable data plan }
+    validations: { required: true }
+  - type: textarea
+    id: fixtures
+    attributes: { label: Broken and fixed fixture plan }
+    validations: { required: true }
+  - type: checkboxes
+    id: prohibited
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: The journey stops before payment, purchase, deletion, publishing, messaging, upload, or real-record mutation.
+          required: true

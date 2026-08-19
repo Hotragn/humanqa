@@ -1,0 +1,13 @@
+kind: industry
+id: ecommerce
+name: Ecommerce quality context
+description: Review-only context for product, cart, and checkout evidence without placing orders or entering payment data.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [industry, ecommerce, safe]
+definition:
+  recommended_personas: [ecommerce-buyer, mobile-user, keyboard-only-user]
+  recommended_journeys: [ecommerce-add-to-cart, checkout-review-only]
+  high_impact_boundaries: [payment, purchase, inventory reservation, messaging, address submission]
+  stop_condition: Stop at the order-review boundary before any irreversible action.

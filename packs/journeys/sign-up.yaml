@@ -1,0 +1,32 @@
+kind: journey
+id: sign-up
+name: Local fixture sign-up
+description: Complete the disposable fixture sign-up flow and verify visible local confirmation.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [signup, onboarding, fixture]
+definition:
+  criticality: 5
+  steps:
+    - action: goto
+      path: /signup
+    - action: fill
+      label: Name
+      value: Fixture User
+    - action: fill
+      label: Work email
+      value: fixture@example.test
+      sensitive: true
+    - action: fill
+      label: Password
+      value: fixture-password
+      sensitive: true
+    - action: click
+      role: button
+      name: Create local account
+      safe: true
+    - action: assert-visible
+      selector: "#signup-status"
+      criterion: User receives a visible account creation confirmation
+      rule: success-state-missing

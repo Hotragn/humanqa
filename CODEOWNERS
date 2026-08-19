@@ -1,0 +1,9 @@
+* @humanqa/maintainers
+/packages/core/ @humanqa/maintainers
+/packages/browser/ @humanqa/maintainers
+/packages/accessibility/ @humanqa/maintainers
+/packages/llm-adapters/ @humanqa/maintainers
+/packs/ @humanqa/maintainers
+/skills/ @humanqa/maintainers
+/.github/workflows/ @humanqa/maintainers
+/SECURITY.md @humanqa/maintainers

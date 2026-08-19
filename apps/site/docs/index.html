@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f0e8" />
+    <meta
+      name="description"
+      content="HumanQA documentation for safe audits, quality contracts, reports, packs, and CI."
+    />
+    <meta property="og:title" content="HumanQA Documentation" />
+    <meta
+      property="og:description"
+      content="Run evidence-first product quality checks locally and in CI."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+    <title>Documentation | HumanQA</title>
+  </head>
+  <body class="docs-page">
+    <a class="skip-link" href="#docs-content">Skip to documentation</a>
+    <header class="site-header docs-header">
+      <a class="brand" href="../" aria-label="HumanQA home"
+        ><span data-icon="aperture" data-size="30"></span><span>HumanQA</span><small>Docs</small></a
+      >
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        data-nav-toggle
+      >
+        <span data-icon="menu"></span><span class="sr-only">Open navigation</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-nav-panel>
+        <a href="../">Product</a><a aria-current="page" href="./">Documentation</a
+        ><a href="https://github.com/Hotragn/humanqa">GitHub</a
+        ><a class="nav-action" href="#quickstart">Quick start</a>
+      </nav>
+    </header>
+
+    <main class="docs-shell">
+      <aside class="docs-sidebar" aria-label="Documentation sections">
+        <label for="docs-search">Search documentation</label>
+        <div class="search-control">
+          <span data-icon="focus"></span
+          ><input
+            id="docs-search"
+            type="search"
+            placeholder="Try “redaction”"
+            autocomplete="off"
+            data-doc-search
+          />
+        </div>
+        <p class="search-result" aria-live="polite" data-search-result>
+          Search commands, reports, packs, and safety
+        </p>
+        <nav>
+          <a href="#quickstart">Quick start</a><a href="#contracts">Quality contracts</a
+          ><a href="#commands">CLI commands</a><a href="#reports">Reports</a
+          ><a href="#safety">Safety and privacy</a><a href="#packs">Packs and skills</a
+          ><a href="#ci">CI and GitHub</a><a href="#publish">Package publishing</a>
+        </nav>
+      </aside>
+
+      <article id="docs-content" class="docs-content">
+        <header class="docs-hero" data-reveal>
+          <p class="eyebrow">HumanQA documentation</p>
+          <h1>From intent to inspectable proof</h1>
+          <p>
+            Configure one safe journey, run it locally, and carry the evidence into review or CI.
+          </p>
+        </header>
+
+        <section id="quickstart" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="capture"></span>
+            <div>
+              <h2>Quick start</h2>
+              <p>Run the included deterministic fixture before adapting a real target.</p>
+            </div>
+          </div>
+          <ol class="doc-steps">
+            <li>
+              <strong>Install</strong>
+              <p>Use Node.js 20 or newer, pnpm, and Chromium.</p>
+            </li>
+            <li>
+              <strong>Start the fixture</strong>
+              <p>The default mode contains deliberate, reproducible defects.</p>
+            </li>
+            <li>
+              <strong>Audit the journey</strong>
+              <p>HumanQA writes evidence and reports under <code>humanqa-output/</code>.</p>
+            </li>
+          </ol>
+          <div class="code-block">
+            <button type="button" data-copy="#quickstart-code">Copy</button>
+            <pre id="quickstart-code" tabindex="0"><code>corepack enable
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
+pnpm demo
+pnpm humanqa audit http://127.0.0.1:4173 --offline --journey packs/journeys/saas-project-creation.yaml</code></pre>
+          </div>
+          <div class="callout">
+            <span data-icon="check"></span>
+            <div>
+              <strong>Expected broken-fixture result</strong>
+              <p>
+                Block release, score 0/100, eight deterministic findings, seven screenshots, and a
+                Playwright trace.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contracts" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="contract"></span>
+            <div>
+              <h2>Quality contracts</h2>
+              <p>Version product intent beside the journey that can prove it.</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <button type="button" data-copy="#contract-code">Copy</button>
+            <pre id="contract-code" tabindex="0"><code>project:
+  name: Example SaaS
+  baseUrl: http://127.0.0.1:4173
+defaults:
+  safeMode: true
+  redact: true
+  screenshots: true
+quality_contracts:
+  - id: project-creation
+    persona: first-time-saas-user
+    journey: packs/journeys/saas-project-creation.yaml
+    acceptance_criteria:
+      - User can create a project
+      - User sees persistent success confirmation
+    thresholds:
+      max_critical_findings: 0
+      min_quality_score: 80</code></pre>
+          </div>
+          <p>
+            Unmapped prose is marked for review. HumanQA does not infer that an acceptance criterion
+            passed merely because the page loaded.
+          </p>
+        </section>
+
+        <section id="commands" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="code"></span>
+            <div>
+              <h2>CLI commands</h2>
+              <p>Every external or mutation-capable boundary remains explicit.</p>
+            </div>
+          </div>
+          <div class="command-index" role="list">
+            <code role="listitem">humanqa init</code
+            ><code role="listitem">humanqa audit &lt;url&gt;</code
+            ><code role="listitem">humanqa verify --config humanqa.yml</code
+            ><code role="listitem">humanqa generate-test &lt;report.json&gt;</code
+            ><code role="listitem">humanqa list-packs</code
+            ><code role="listitem">humanqa validate-pack &lt;path&gt;</code
+            ><code role="listitem">humanqa doctor</code
+            ><code role="listitem"
+              >humanqa github comment --report &lt;report.json&gt; --dry-run</code
+            >
+          </div>
+          <div class="option-grid">
+            <div>
+              <strong>--offline</strong>
+              <p>Require a loopback target and block cross-origin requests.</p>
+            </div>
+            <div>
+              <strong>--no-screenshots</strong>
+              <p>Avoid visual artifacts on sensitive targets.</p>
+            </div>
+            <div>
+              <strong>--mobile</strong>
+              <p>Use touch and a 390x844 default viewport.</p>
+            </div>
+            <div>
+              <strong>--allow-mutations</strong>
+              <p>Explicitly permit reviewed mutation-capable steps.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="reports" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="report"></span>
+            <div>
+              <h2>Report contract</h2>
+              <p>One normalized report object drives every format.</p>
+            </div>
+          </div>
+          <div class="format-rack">
+            <span>JSON</span><span>Markdown</span><span>HTML</span><span>SARIF</span
+            ><span>JUnit XML</span>
+          </div>
+          <p>
+            Every finding includes a stable ID, category, severity, confidence, user impact, effort,
+            journey criticality, priority, release risk, reproduction, evidence, remediation,
+            regression candidacy, and limitations.
+          </p>
+          <div class="formula-pair">
+            <div>
+              <strong>Priority</strong><code>(reach × impact × confidence) / max(effort, 1)</code>
+            </div>
+            <div>
+              <strong>Release risk</strong
+              ><code>Σ severity_weight × confidence × journey_criticality</code>
+            </div>
+          </div>
+        </section>
+
+        <section id="safety" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="shield"></span>
+            <div>
+              <h2>Safety and privacy</h2>
+              <p>Local-first is an execution boundary, not a marketing phrase.</p>
+            </div>
+          </div>
+          <div class="safety-matrix">
+            <article>
+              <h3>Blocked by default</h3>
+              <p>
+                Payments, deletion, account changes, messages, private uploads, and high-impact
+                actions.
+              </p>
+            </article>
+            <article>
+              <h3>Redacted by default</h3>
+              <p>
+                Emails, bearer tokens, API keys, passwords, secret query parameters, and
+                authorization headers.
+              </p>
+            </article>
+            <article>
+              <h3>Never automatic</h3>
+              <p>
+                Artifact uploads, telemetry, LLM enrichment, GitHub writes, severity upgrades, and
+                compliance claims.
+              </p>
+            </article>
+          </div>
+          <div class="warning">
+            <strong>Manual review remains required.</strong>
+            <p>
+              Automated axe and keyboard checks do not establish WCAG conformance, legal compliance,
+              or usability across untested states.
+            </p>
+          </div>
+        </section>
+
+        <section id="packs" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="pack"></span>
+            <div>
+              <h2>Packs and agent skills</h2>
+              <p>Extend product knowledge without introducing executable pack code.</p>
+            </div>
+          </div>
+          <div class="pack-map">
+            <div>
+              <strong>27 YAML packs</strong>
+              <p>Personas, journeys, heuristics, product frameworks, and industries.</p>
+            </div>
+            <div>
+              <strong>5 portable skills</strong>
+              <p>
+                UX audit, PRD verification, accessibility gate, regression generation, and release
+                readiness.
+              </p>
+            </div>
+          </div>
+          <div class="code-block">
+            <button type="button" data-copy="#pack-code">Copy</button>
+            <pre id="pack-code" tabindex="0"><code>pnpm humanqa list-packs
+pnpm humanqa validate-pack packs
+pnpm humanqa validate-pack path/to/new-pack.yaml</code></pre>
+          </div>
+        </section>
+
+        <section id="ci" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="github"></span>
+            <div>
+              <h2>CI and GitHub</h2>
+              <p>Use report artifacts for review while keeping writes dry-run in v0.1.</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <button type="button" data-copy="#ci-code">Copy</button>
+            <pre id="ci-code" tabindex="0"><code>- uses: pnpm/action-setup@v4
+- run: pnpm install --frozen-lockfile
+- run: pnpm exec playwright install --with-deps chromium
+- run: pnpm humanqa verify --config humanqa.yml</code></pre>
+          </div>
+          <p>
+            SARIF, JUnit XML, concise pull-request Markdown, and GitHub annotations all derive from
+            the same evidence-backed report.
+          </p>
+        </section>
+
+        <section id="publish" data-doc-section data-reveal>
+          <div class="doc-heading">
+            <span data-icon="aperture"></span>
+            <div>
+              <h2>Package publishing</h2>
+              <p>Release only from a clean, validated commit with provenance.</p>
+            </div>
+          </div>
+          <div class="release-sequence">
+            <span>pnpm release:validate</span><span>npm login</span
+            ><span>pnpm release:publish</span>
+          </div>
+          <p>
+            The publish command requires an explicit maintainer action. CI validation never
+            publishes, creates tags, or writes GitHub releases by itself.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer shell">
+      <div>
+        <a class="brand" href="../"><span data-icon="aperture"></span><span>HumanQA</span></a>
+        <p>Evidence-first product quality checks for web apps.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="../">Product</a><a href="https://github.com/Hotragn/humanqa">GitHub</a
+        ><a href="https://www.npmjs.com/package/humanqa">npm</a>
+      </nav>
+      <p class="copyright">
+        Apache-2.0<br />Copyright <span data-year></span> HumanQA contributors
+      </p>
+    </footer>
+    <script type="module" src="../src/main.ts"></script>
+  </body>
+</html>

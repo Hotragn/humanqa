@@ -1,0 +1,13 @@
+kind: persona
+id: mobile-user
+name: Mobile user
+description: A touch-oriented user exercising the journey in a narrow viewport with limited screen space.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [mobile, responsive, touch]
+definition:
+  goals: [Complete the critical journey without clipping or unintended horizontal scrolling]
+  constraints: [390x844 default viewport, touch emulation, variable browser chrome excluded]
+  evidence_focus: [overflow, clipping, touch target reachability, text wrapping, state feedback]
+  manual_review: [gesture behavior, physical ergonomics, device-specific assistive technology]

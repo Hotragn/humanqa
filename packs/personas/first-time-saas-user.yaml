@@ -1,0 +1,13 @@
+kind: persona
+id: first-time-saas-user
+name: First-time SaaS user
+description: A new user who needs clear orientation, safe defaults, and visible confirmation while creating initial value.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [saas, onboarding, first-run]
+definition:
+  goals: [Understand the product, complete initial setup, confirm the first successful outcome]
+  constraints: [No prior product vocabulary, no existing workspace context]
+  evidence_focus: [orientation, labels, progress, success feedback, recoverability]
+  caution: This persona guides journey scope and never predicts a real person's attitudes.

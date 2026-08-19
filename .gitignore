@@ -1,0 +1,11 @@
+node_modules/
+dist/
+humanqa-output/
+playwright-report/
+test-results/
+release-artifacts/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+examples/**/generated/

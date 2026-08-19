@@ -1,0 +1,14 @@
+kind: industry
+id: saas
+name: SaaS quality context
+description: Safe starting context for onboarding, project creation, dashboard, and settings journeys.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [industry, saas]
+definition:
+  recommended_personas: [first-time-saas-user, returning-user, keyboard-only-user]
+  recommended_journeys:
+    [sign-up, onboarding, saas-project-creation, dashboard-empty-state, settings-update]
+  high_impact_boundaries: [billing, invitations, publishing, deletion, account settings]
+  fixture_policy: Use disposable local records and never audit production mutation flows by default.

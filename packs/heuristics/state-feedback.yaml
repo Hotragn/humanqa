@@ -1,0 +1,16 @@
+kind: heuristic
+id: state-feedback
+name: Observable state feedback
+description: Explicit-metadata rules for success, error, empty, and loading feedback after declared states.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [feedback, forms, loading, empty-state]
+definition:
+  rules:
+    - success-state-missing
+    - form-error-feedback-missing
+    - empty-state-signal-missing
+    - loading-state-signal-missing
+  evidence_requirement: Explicit journey assertion or data-humanqa state metadata
+  manual_review: [message clarity, timing appropriateness, recovery quality]

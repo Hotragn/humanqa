@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanQA regression scaffold result",
+  "type": "object",
+  "required": ["status", "finding_id", "output_path", "review_notes", "omitted_unsafe_steps"],
+  "additionalProperties": false,
+  "properties": {
+    "status": { "enum": ["generated", "needs-evidence", "blocked-unsafe"] },
+    "finding_id": { "type": "string" },
+    "output_path": { "type": ["string", "null"] },
+    "review_notes": { "type": "array", "items": { "type": "string" } },
+    "omitted_unsafe_steps": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">HumanQA evidence aperture</title>
+  <rect width="64" height="64" rx="12" fill="#191b18"/>
+  <path d="M14 17h18l9 9v21H23l-9-9V17Z" fill="none" stroke="#f4f2e9" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m41 26 9-9v21l-9 9V26Z" fill="#ed5b2a"/>
+  <path d="M23 28h10M23 36h10" stroke="#f4f2e9" stroke-width="4" stroke-linecap="square"/>
+</svg>

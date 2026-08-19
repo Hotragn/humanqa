@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanQA UX audit skill output",
+  "type": "object",
+  "required": ["verdict", "scope", "findings", "limitations", "human_review"],
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {
+      "enum": ["Block release", "Fix before launch", "Plan next sprint", "Monitor", "Informational"]
+    },
+    "scope": {
+      "type": "object",
+      "required": ["goal", "mode"],
+      "properties": {
+        "goal": { "type": "string" },
+        "persona": { "type": "string" },
+        "journey": { "type": "string" },
+        "mode": { "enum": ["declared-journey", "conservative-page-inspection"] }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "title",
+          "source",
+          "severity",
+          "confidence",
+          "evidence_rule",
+          "reproduction",
+          "limitation"
+        ],
+        "properties": {
+          "finding_id": { "type": "string", "pattern": "^HQ-" },
+          "title": { "type": "string" },
+          "source": { "enum": ["deterministic", "advisory"] },
+          "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "evidence_rule": { "type": "string" },
+          "evidence_references": { "type": "array", "items": { "type": "string" } },
+          "reproduction": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "limitation": { "type": "string" }
+        }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "human_review": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,29 @@
+name: Heuristic pack
+description: Propose an observable rule group or advisory review mapping.
+title: "pack(heuristic): "
+labels: ["pack:heuristic"]
+body:
+  - type: input
+    id: pack_id
+    attributes: { label: Proposed kebab-case ID }
+    validations: { required: true }
+  - type: textarea
+    id: pain
+    attributes: { label: Quality problem }
+    validations: { required: true }
+  - type: textarea
+    id: signal
+    attributes: { label: Exact observable signal or existing rule IDs }
+    validations: { required: true }
+  - type: dropdown
+    id: source
+    attributes: { label: Intended source, options: [deterministic, advisory] }
+    validations: { required: true }
+  - type: textarea
+    id: false_positive
+    attributes: { label: Likely false-positive contexts and limitations }
+    validations: { required: true }
+  - type: textarea
+    id: fixture
+    attributes: { label: Broken and fixed fixture evidence }
+    validations: { required: true }

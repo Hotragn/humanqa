@@ -1,0 +1,26 @@
+title: "What I tried: "
+labels: [feedback]
+body:
+  - type: markdown
+    attributes:
+      value: Share only synthetic or sanitized information. Do not attach credentials, private URLs, customer data, PRDs, DOM, traces, or screenshots.
+  - type: textarea
+    id: job
+    attributes: { label: Job and authorized environment type }
+    validations: { required: true }
+  - type: textarea
+    id: command
+    attributes: { label: Command or quality contract }
+    validations: { required: true }
+  - type: textarea
+    id: result
+    attributes: { label: Expected and observed result }
+    validations: { required: true }
+  - type: textarea
+    id: trust
+    attributes: { label: Evidence you trusted or disputed }
+    validations: { required: true }
+  - type: textarea
+    id: next
+    attributes: { label: What you did next }
+    validations: { required: true }

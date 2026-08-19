@@ -1,0 +1,16 @@
+kind: product-framework
+id: nielsen-heuristic-mapping
+name: Nielsen-style heuristic mapping
+description: Adds a review vocabulary to observed evidence while keeping subjective mappings advisory.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [usability, heuristics, review]
+definition:
+  mappings:
+    success-state-missing: visibility of system status
+    inconsistent-action-labels: consistency and standards
+    form-error-feedback-missing: help users recognize and recover from errors
+    high-impact-confirmation-missing: error prevention
+  source: advisory
+  caution: A mapping is a review lens, not evidence of user harm by itself.

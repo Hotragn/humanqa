@@ -1,0 +1,62 @@
+{
+  "name": "humanqa-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-first product quality checks for web apps",
+  "license": "Apache-2.0",
+  "author": "HumanQA contributors",
+  "homepage": "https://hotragn.github.io/humanqa/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hotragn/humanqa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hotragn/humanqa/issues"
+  },
+  "keywords": [
+    "playwright",
+    "quality-engineering",
+    "accessibility",
+    "ux-testing",
+    "qa",
+    "developer-tools"
+  ],
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup && pnpm --filter @humanqa/demo-dashboard build && pnpm --filter @humanqa/site build",
+    "dev": "tsx apps/cli/src/bin.ts",
+    "humanqa": "tsx apps/cli/src/bin.ts",
+    "demo": "pnpm --filter @humanqa/demo-dashboard dev",
+    "site": "pnpm --filter @humanqa/site dev",
+    "site:assets": "node scripts/capture-site-assets.mjs",
+    "site:validation-shots": "node scripts/capture-site-validation.mjs",
+    "site:preview": "pnpm --filter @humanqa/site preview",
+    "pack:cli": "node scripts/pack-cli.mjs",
+    "release:validate": "pnpm check && pnpm build && pnpm pack:cli && node scripts/validate-release.mjs",
+    "release:publish": "pnpm --dir apps/cli publish --access public --provenance",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --exclude tests/packs/**/*.test.ts --exclude tests/e2e/**/*.test.ts",
+    "test:packs": "vitest run tests/packs",
+    "test:e2e": "vitest run tests/e2e --testTimeout=90000",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:packs && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.34.0",
+    "@playwright/test": "1.55.0",
+    "@types/node": "24.3.0",
+    "eslint": "9.34.0",
+    "prettier": "3.6.2",
+    "tsup": "8.5.0",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.41.0",
+    "vite": "7.1.3",
+    "vitest": "3.2.4"
+  }
+}

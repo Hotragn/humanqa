@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanQA accessibility gate",
+  "type": "object",
+  "required": ["decision", "routes", "axe", "keyboard", "scope_statement", "manual_review"],
+  "additionalProperties": false,
+  "properties": {
+    "decision": { "enum": ["block", "fix-before-launch", "pass-automated-scope", "review"] },
+    "routes": { "type": "array", "items": { "type": "string" } },
+    "axe": {
+      "type": "object",
+      "required": ["completed", "rule_ids", "finding_ids"],
+      "properties": {
+        "completed": { "type": "boolean" },
+        "rule_ids": { "type": "array", "items": { "type": "string" } },
+        "finding_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "keyboard": {
+      "type": "object",
+      "required": ["checks", "blocked_targets"],
+      "properties": {
+        "checks": { "type": "integer", "minimum": 0 },
+        "blocked_targets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "scope_statement": { "type": "string" },
+    "manual_review": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  }
+}

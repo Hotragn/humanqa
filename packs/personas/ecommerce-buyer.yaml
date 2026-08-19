@@ -1,0 +1,14 @@
+kind: persona
+id: ecommerce-buyer
+name: Ecommerce buyer
+description: A shopper who needs accurate product state, cart feedback, and a safe review boundary before any purchase.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [ecommerce, cart, review-only]
+definition:
+  goals: [Understand product state, add a fixture item, review cart details without purchasing]
+  constraints: [No payment entry, no order placement, no production inventory mutation]
+  evidence_focus:
+    [availability, price context, cart confirmation, totals, destructive removal affordances]
+  safety: Stop before payment, purchase, messaging, or account mutation.

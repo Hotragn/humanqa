@@ -1,0 +1,15 @@
+kind: persona
+id: enterprise-evaluator
+name: Enterprise evaluator
+description: An evaluator comparing product fit, trust, administration, and documentation without changing organization state.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [enterprise, evaluation, trust]
+definition:
+  goals:
+    [Locate capability evidence, understand permissions, review administration and support paths]
+  constraints: [No procurement submission, no account changes, no confidential document upload]
+  evidence_focus:
+    [information architecture, consistency, permission explanations, documentation links]
+  caution: HumanQA does not decide organizational fit or security posture.

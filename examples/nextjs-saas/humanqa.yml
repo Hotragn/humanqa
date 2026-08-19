@@ -1,0 +1,24 @@
+project:
+  name: Example Next.js SaaS
+  baseUrl: http://127.0.0.1:3000
+defaults:
+  safeMode: true
+  redact: true
+  screenshots: true
+  browser: chromium
+  offline: false
+  viewport: { width: 1440, height: 900 }
+  mobile: false
+quality_contracts:
+  - id: project-creation
+    name: Project creation produces a confirmed result
+    persona: first-time-saas-user
+    journey: ../../packs/journeys/saas-project-creation.yaml
+    acceptance_criteria:
+      - User can create a project
+      - User sees a persistent success confirmation
+      - All interactive controls are keyboard reachable
+    thresholds:
+      max_duration_seconds: 120
+      max_critical_findings: 0
+      min_quality_score: 80

@@ -1,0 +1,13 @@
+kind: persona
+id: returning-user
+name: Returning user
+description: A user who expects a familiar route, preserved context, and fast access to recurring work.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [returning, efficiency, navigation]
+definition:
+  goals: [Resume prior work, locate recent content, complete a known task efficiently]
+  constraints: [May rely on learned labels and stable navigation]
+  evidence_focus: [route stability, state persistence, action consistency, loading feedback]
+  caution: Familiarity is a declared test context, not observed human behavior.

@@ -1,0 +1,17 @@
+kind: heuristic
+id: accessible-controls
+name: Accessible control semantics
+description: Deterministic rules for names, labels, headings, and keyboard reachability in exercised states.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [accessibility, controls, keyboard]
+definition:
+  rules:
+    - form-control-label-missing
+    - interactive-name-missing
+    - heading-order-skip
+    - keyboard-target-not-reached
+    - focus-indicator-not-detected
+  gate_sources: [deterministic]
+  manual_review: [name clarity, logical focus order, screen-reader behavior]

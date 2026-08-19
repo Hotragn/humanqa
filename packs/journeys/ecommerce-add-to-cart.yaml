@@ -1,0 +1,24 @@
+kind: journey
+id: ecommerce-add-to-cart
+name: Ecommerce add-to-cart fixture
+description: Verify a disposable fixture item can enter a local cart with visible confirmation.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [ecommerce, cart, fixture]
+definition:
+  criticality: 5
+  steps:
+    - action: goto
+      path: /product
+    - action: assert-visible
+      selector: "[data-testid=product-title]"
+      criterion: Product identity is visible before cart interaction
+    - action: click
+      role: button
+      name: Add fixture item to cart
+      safe: true
+    - action: assert-visible
+      selector: "[role=status]"
+      criterion: Cart update has visible confirmation
+      rule: success-state-missing

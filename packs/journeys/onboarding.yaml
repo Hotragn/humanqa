@@ -1,0 +1,24 @@
+kind: journey
+id: onboarding
+name: First-run onboarding
+description: Verify a first-run goal selection and safe transition to project setup.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [saas, onboarding, first-run]
+definition:
+  criticality: 4
+  steps:
+    - action: goto
+      path: /onboarding
+    - action: assert-visible
+      role: heading
+      name: Shape your workspace
+      criterion: User understands the onboarding step
+    - action: click
+      role: link
+      name: Continue to project setup
+      safe: true
+    - action: assert-url
+      pattern: /projects/new$
+      criterion: User can continue to project setup

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanQA PRD verification matrix",
+  "type": "object",
+  "required": ["contract", "matrix", "release_effect", "limitations"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": { "type": "string" },
+    "matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["criterion", "status", "evidence", "explanation", "confidence"],
+        "properties": {
+          "criterion": { "type": "string" },
+          "status": { "enum": ["pass", "fail", "review"] },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "explanation": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "release_effect": {
+      "enum": ["block", "fix-before-launch", "no-automated-block", "human-decision"]
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } }
+  }
+}

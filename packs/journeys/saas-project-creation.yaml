@@ -1,0 +1,41 @@
+kind: journey
+id: saas-project-creation
+name: SaaS project creation
+description: Create a disposable local project and verify confirmation, keyboard reachability, and the resulting state.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [saas, project, fixture, critical]
+definition:
+  criticality: 5
+  steps:
+    - action: goto
+      path: /projects/new
+      description: Open the project creation route
+    - action: fill
+      label: Project name
+      value: Evidence Lab
+      description: Enter a disposable fixture project name
+    - action: fill
+      selector: "#project-slug"
+      value: evidence-lab
+      description: Enter a disposable fixture slug
+    - action: click
+      role: button
+      name: Create project
+      safe: true
+      description: Activate the local non-persistent fixture action
+    - action: assert-visible
+      selector: "#project-success"
+      criterion: User can create a project
+      rule: success-state-missing
+      description: Verify the created project result is visible
+    - action: assert-visible
+      selector: "#project-success"
+      criterion: User sees a persistent success confirmation
+      rule: success-state-missing
+      description: Verify persistent success confirmation
+    - action: keyboard-reachable
+      selector: "#create-project"
+      criterion: All interactive controls are keyboard reachable
+      description: Reach the project action using only Tab navigation

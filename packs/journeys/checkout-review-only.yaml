@@ -1,0 +1,23 @@
+kind: journey
+id: checkout-review-only
+name: Checkout review only
+description: Inspect a disposable checkout summary and stop before payment entry or order placement.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [ecommerce, checkout, review-only, safe]
+definition:
+  criticality: 5
+  steps:
+    - action: goto
+      path: /checkout/review
+    - action: assert-visible
+      role: heading
+      name: Review order
+      criterion: User can review the order before any payment action
+    - action: assert-visible
+      selector: "[data-testid=order-total]"
+      criterion: Order total is visible in the review state
+    - action: screenshot
+      name: checkout-review-boundary
+      description: Capture the safe review boundary without activating purchase controls

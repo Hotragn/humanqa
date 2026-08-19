@@ -1,0 +1,13 @@
+kind: industry
+id: developer-tools
+name: Developer-tools quality context
+description: Review context for setup, project creation, documentation, tokens, logs, and failure recovery.
+author: HumanQA maintainers
+version: 0.1.0
+compatibility: ">=0.1.0 <1.0.0"
+tags: [industry, developer-tools, documentation]
+definition:
+  recommended_personas: [first-time-saas-user, returning-user, enterprise-evaluator]
+  recommended_journeys: [onboarding, saas-project-creation, settings-update]
+  evidence_focus: [copyable setup, error recovery, documentation links, loading and empty states]
+  secret_boundary: Redact tokens, keys, authorization headers, logs, and secret query parameters.

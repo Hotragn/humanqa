@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a bounded capability tied to observed user evidence.
+title: "feature: "
+labels: [feature]
+body:
+  - type: textarea
+    id: job
+    attributes:
+      {
+        label: Painful job,
+        description: Describe the last real workflow,
+        not only the proposed feature.
+      }
+    validations: { required: true }
+  - type: textarea
+    id: current
+    attributes:
+      { label: Current workaround, description: What tools or manual steps are used today? }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes:
+      {
+        label: Evidence,
+        description: What observed behavior,
+        repeated request,
+        or defect supports this?
+      }
+    validations: { required: true }
+  - type: textarea
+    id: outcome
+    attributes: { label: Smallest useful outcome }
+    validations: { required: true }
+  - type: textarea
+    id: safety
+    attributes: { label: Safety and privacy impact }
+    validations: { required: true }
+  - type: textarea
+    id: non_goals
+    attributes: { label: Non-goals }
+    validations: { required: true }

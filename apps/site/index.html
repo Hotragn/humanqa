@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f0e8" />
+    <meta
+      name="description"
+      content="HumanQA turns declared web journeys into browser evidence, deterministic findings, release decisions, and Playwright regression scaffolds."
+    />
+    <meta property="og:title" content="HumanQA | Evidence before opinion" />
+    <meta
+      property="og:description"
+      content="Evidence-first product quality checks for web applications."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <title>HumanQA | Evidence-first product quality checks</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="HumanQA home">
+        <span data-icon="aperture" data-size="30"></span>
+        <span>HumanQA</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        data-nav-toggle
+      >
+        <span data-icon="menu"></span><span class="sr-only">Open navigation</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-nav-panel>
+        <a href="#product">Product</a>
+        <a href="./docs/">Documentation</a>
+        <a href="https://github.com/Hotragn/humanqa">GitHub</a>
+        <a class="nav-action" href="#install">Try locally</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero shell">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">Evidence before opinion</p>
+          <h1>Know what broke.<br />Prove what works.</h1>
+          <p class="hero-lede">
+            Turn one declared web journey into evidence, release risk, and a regression test.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#install"
+              >Run your first audit <span data-icon="arrow"></span
+            ></a>
+            <a class="button button-secondary" href="./docs/">Read the docs</a>
+          </div>
+        </div>
+        <figure class="hero-proof" data-reveal>
+          <img
+            src="./media/report-evidence.png"
+            width="1440"
+            height="960"
+            alt="A real HumanQA HTML report showing a blocked release and evidence-backed findings"
+          />
+          <figcaption>
+            <span><strong>8</strong> reproducible findings</span>
+            <span><strong>5</strong> portable report formats</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="proof-ledger" aria-label="Validated project facts">
+        <div class="shell ledger-grid">
+          <p>Validated locally on Chromium</p>
+          <strong>26 unit tests</strong>
+          <strong>27 starter packs</strong>
+          <strong>5 agent skills</strong>
+          <strong>0 required API keys</strong>
+        </div>
+      </section>
+
+      <section id="product" class="section shell chain-section">
+        <div class="section-intro" data-reveal>
+          <h2>A release decision you can reconstruct</h2>
+          <p>
+            Every definite finding connects product intent to the browser state that produced it.
+          </p>
+        </div>
+        <ol class="evidence-chain">
+          <li data-reveal>
+            <span data-icon="contract"></span><strong>Declare</strong>
+            <p>Version the journey and acceptance criteria.</p>
+          </li>
+          <li data-reveal>
+            <span data-icon="capture"></span><strong>Exercise</strong>
+            <p>Run safe browser actions against an authorized target.</p>
+          </li>
+          <li data-reveal>
+            <span data-icon="trace"></span><strong>Collect</strong>
+            <p>Keep trace, screenshots, network, console, DOM, axe, and keyboard evidence.</p>
+          </li>
+          <li data-reveal>
+            <span data-icon="report"></span><strong>Decide</strong>
+            <p>Apply visible formulas and contract thresholds.</p>
+          </li>
+          <li data-reveal>
+            <span data-icon="code"></span><strong>Regress</strong>
+            <p>Generate a reviewed Playwright starting point.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section shell report-section">
+        <div class="report-visual" data-reveal>
+          <img
+            src="./media/finding-evidence.png"
+            width="1280"
+            height="900"
+            loading="lazy"
+            alt="A real HumanQA finding with reproduction, evidence links, remediation, and limitations"
+          />
+        </div>
+        <div class="report-copy" data-reveal>
+          <span class="icon-frame" data-icon="report" data-size="32"></span>
+          <h2>Findings that survive review</h2>
+          <p>
+            Stable IDs, exact reproduction, raw references, confidence, risk, suggested fixes, and
+            uncertainty travel together.
+          </p>
+          <a class="text-link" href="./docs/#reports"
+            >Inspect the report contract <span data-icon="arrow"></span
+          ></a>
+        </div>
+      </section>
+
+      <section class="section shell capability-section">
+        <div class="section-intro" data-reveal>
+          <h2>One narrow loop. Five useful surfaces.</h2>
+          <p>
+            The deterministic core works alone. Optional integrations remain outside the release
+            gate.
+          </p>
+        </div>
+        <div class="capability-grid">
+          <article class="capability capability-wide pattern-grid" data-reveal>
+            <span data-icon="capture"></span>
+            <h3>Browser evidence</h3>
+            <p>
+              Screenshots, traces, URL history, console failures, network failures, timing, and
+              observable DOM state.
+            </p>
+          </article>
+          <article class="capability signal-field" data-reveal>
+            <span data-icon="focus"></span>
+            <h3>Accessibility</h3>
+            <p>
+              Raw axe references plus bounded keyboard checks, with manual-review limits intact.
+            </p>
+          </article>
+          <article class="capability" data-reveal>
+            <span data-icon="shield"></span>
+            <h3>Safe by default</h3>
+            <p>High-impact actions are blocked. Redaction stays on. Nothing uploads silently.</p>
+          </article>
+          <article class="capability capability-tall trace-field" data-reveal>
+            <span data-icon="pack"></span>
+            <h3>Community packs</h3>
+            <p>
+              Contributors add versioned YAML personas, journeys, heuristics, frameworks, and
+              industry knowledge without modifying core code.
+            </p>
+          </article>
+          <article class="capability" data-reveal>
+            <span data-icon="code"></span>
+            <h3>Agent-ready output</h3>
+            <p>
+              Reports and five portable skills give coding agents explicit evidence and safety
+              contracts.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install" class="section shell install-section">
+        <div class="install-copy" data-reveal>
+          <p class="eyebrow">Local-first setup</p>
+          <h2>From URL to proof in one command</h2>
+          <p>No hosted account, telemetry, or model key is required.</p>
+        </div>
+        <div class="command-panel" data-reveal>
+          <div class="command-top">
+            <span>PowerShell or shell</span
+            ><button type="button" data-copy="#install-command">Copy</button>
+          </div>
+          <pre
+            id="install-command"
+            tabindex="0"
+          ><code>npx humanqa audit http://127.0.0.1:4173 --journey packs/journeys/saas-project-creation.yaml</code></pre>
+          <div class="command-result">
+            <span data-icon="check"></span><span>Evidence stays on your machine by default.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell open-source-section">
+        <div class="open-source-mark" data-reveal>
+          <span data-icon="aperture" data-size="90"></span>
+        </div>
+        <div class="open-source-copy" data-reveal>
+          <h2>Built in the open, designed for extension</h2>
+          <p>
+            Apache-2.0 licensed with clear package boundaries, data-only packs, contributor
+            mentoring, and evidence-backed roadmap decisions.
+          </p>
+          <div class="inline-actions">
+            <a class="button button-primary" href="https://github.com/Hotragn/humanqa"
+              ><span data-icon="github"></span> View repository</a
+            >
+            <a class="text-link" href="./docs/#packs"
+              >Author a pack <span data-icon="arrow"></span
+            ></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <div>
+        <a class="brand" href="./"><span data-icon="aperture"></span><span>HumanQA</span></a>
+        <p>Evidence-first product quality checks for web apps.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="./docs/">Documentation</a><a href="https://github.com/Hotragn/humanqa">GitHub</a
+        ><a href="https://www.npmjs.com/package/humanqa">npm</a
+        ><a href="mailto:security@humanqa.dev">Security</a>
+      </nav>
+      <p class="copyright">
+        Apache-2.0<br />Copyright <span data-year></span> HumanQA contributors
+      </p>
+    </footer>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
