@@ -50,7 +50,7 @@
     "@humanqa/reporters": "workspace:*",
     "@humanqa/scorer": "workspace:*",
     "@humanqa/test-generator": "workspace:*",
-    "commander": "14.0.0",
+    "commander": "15.0.0",
     "yaml": "2.9.0"
   }
 }
