@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { redactText, redactUnknown, redactUrl } from "@humanqa/core";
+import { redactDomExcerpt, redactText, redactUnknown, redactUrl } from "@humanqa/core";
 
 describe("redaction", () => {
   it.each([
@@ -66,5 +66,17 @@ describe("redaction", () => {
       authorization: "[REDACTED:sensitive-field]",
       nested: { password: "[REDACTED:sensitive-field]", title: "Safe title" }
     });
+  });
+
+  it("redacts sensitive input values in either attribute order without changing ordinary inputs", () => {
+    const excerpt = [
+      '<input value="fixture-password" data-note="safe" type="password">',
+      "<input type=email value='alice@example.test'>",
+      '<input type="text" value="public fixture value">'
+    ].join("");
+    const result = redactDomExcerpt(excerpt);
+    expect(result).not.toContain("fixture-password");
+    expect(result).not.toContain("alice@example.test");
+    expect(result).toContain('type="text" value="public fixture value"');
   });
 });

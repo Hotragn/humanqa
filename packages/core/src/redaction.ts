@@ -95,10 +95,15 @@ export function redactUnknown(value: unknown): unknown {
 }
 
 export function redactDomExcerpt(html: string): string {
-  return redactText(
-    html.replace(
-      /(<input\b[^>]*(?:type=["']?(?:password|email)["']?)[^>]*\bvalue=["'])[^"']*(["'])/giu,
-      "$1[REDACTED:input-value]$2"
-    )
-  ).value;
+  const redactedInputs = html.replace(/<input\b[^>]*>/giu, (tag) => {
+    const sensitiveType =
+      /\btype\s*=\s*(?:"(?:password|email)"|'(?:password|email)'|(?:password|email))(?=\s|\/?>)/iu.test(
+        tag
+      );
+    if (!sensitiveType) return tag;
+    return tag
+      .replace(/(\bvalue\s*=\s*")[^"]*"/giu, '$1[REDACTED:input-value]"')
+      .replace(/(\bvalue\s*=\s*')[^']*'/giu, "$1[REDACTED:input-value]'");
+  });
+  return redactText(redactedInputs).value;
 }
