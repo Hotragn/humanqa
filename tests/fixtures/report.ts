@@ -39,6 +39,7 @@ export function sampleFinding(overrides: Partial<Finding> = {}): Finding {
 export function sampleReport(findings: Finding[] = [sampleFinding()]): AuditReport {
   return {
     schemaVersion: "0.1.0",
+    toolVersion: "0.1.4",
     runId: "hq-test-run",
     generatedAt: "2026-08-18T20:00:00.000Z",
     project: { name: "Northstar Fixture", baseUrl: "http://127.0.0.1:4173" },

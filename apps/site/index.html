@@ -20,7 +20,9 @@
     <meta property="og:image" content="https://humanqa-nine.vercel.app/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://humanqa-nine.vercel.app/" />
+    <link rel="icon" href="/favicon.ico" sizes="64x64" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="mask-icon" href="/icon.svg" color="#191b18" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>HumanQA | Evidence-first product quality checks</title>
@@ -81,7 +83,7 @@
       <section class="proof-ledger" aria-label="Validated project facts">
         <div class="shell ledger-grid">
           <p>Validated locally on Chromium</p>
-          <strong>29 unit tests</strong>
+          <strong>38 unit tests</strong>
           <strong>27 starter packs</strong>
           <strong>5 agent skills</strong>
           <strong>0 required API keys</strong>
@@ -207,7 +209,8 @@
             ><button type="button" data-copy="#install-command">Copy</button>
           </div>
           <pre id="install-command" tabindex="0"><code>npx humanqa install-browser
-npx humanqa audit http://127.0.0.1:4173 --journey packs/journeys/saas-project-creation.yaml</code></pre>
+npx humanqa init --name "My web application" --url http://127.0.0.1:3000
+npx humanqa verify --config humanqa.yml</code></pre>
           <div class="command-result">
             <span data-icon="check"></span><span>Evidence stays on your machine by default.</span>
           </div>

@@ -61,12 +61,18 @@ export function redactUrl(input: string): RedactionResult {
   const found = new Set<string>();
   try {
     const url = new URL(input);
-    for (const [key] of url.searchParams) {
+    const sanitized = new URLSearchParams();
+    for (const [key, value] of url.searchParams) {
       if (sensitiveQueryKeys.test(key)) {
-        url.searchParams.set(key, "[REDACTED:query-secret]");
+        sanitized.append(key, "[REDACTED:query-secret]");
         found.add("query-secret");
+        continue;
       }
+      const valueResult = redactText(value);
+      sanitized.append(key, valueResult.value);
+      for (const item of valueResult.redactions) found.add(item);
     }
+    url.search = sanitized.toString();
     const textResult = redactText(url.toString());
     for (const item of textResult.redactions) found.add(item);
     return { value: textResult.value, redactions: [...found] };

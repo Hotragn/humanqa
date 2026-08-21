@@ -27,12 +27,11 @@ humanqa install-browser
 ## First audit
 
 ```bash
-humanqa audit http://127.0.0.1:4173 \
-  --offline \
-  --persona first-time-saas-user \
-  --goal "Create a disposable project" \
-  --journey packs/journeys/saas-project-creation.yaml
+humanqa init --name "My web application" --url http://127.0.0.1:3000
+humanqa verify --config humanqa.yml
 ```
+
+`init` writes a safe Quality Contract and a validated local journey at `humanqa/journeys/smoke.yaml`. Review and adapt that data-only journey as the product flow evolves; no repository clone is required.
 
 Every run writes JSON, Markdown, standalone HTML, SARIF, and JUnit XML under `humanqa-output/<timestamp>/`.
 
@@ -46,7 +45,7 @@ humanqa generate-test <report.json>
 humanqa list-packs
 humanqa validate-pack <path>
 humanqa install-browser [--with-deps]
-humanqa doctor
+humanqa doctor [--json]
 humanqa github comment --report <report.json> --dry-run
 ```
 

@@ -11,8 +11,8 @@
     }
   },
   "dependencies": {
-    "@axe-core/playwright": "4.10.2",
+    "@axe-core/playwright": "4.13.0",
     "@humanqa/core": "workspace:*",
-    "playwright": "1.55.1"
+    "playwright": "1.62.1"
   }
 }

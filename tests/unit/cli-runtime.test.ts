@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   browserInstallArguments,
   formatCliError,
+  humanqaPackageVersion,
   playwrightCliPath
 } from "../../apps/cli/src/runtime.js";
 
@@ -18,6 +19,10 @@ describe("CLI browser runtime", () => {
     );
     expect(browserInstallArguments(false)).toEqual(["install", "chromium"]);
     expect(browserInstallArguments(true)).toEqual(["install", "--with-deps", "chromium"]);
+  });
+
+  it("reads the CLI version from package metadata instead of a source constant", () => {
+    expect(humanqaPackageVersion(join(root, "apps/cli/src/bin.ts"))).toBe("0.1.4");
   });
 
   it("turns Playwright's missing executable error into a HumanQA recovery command", () => {

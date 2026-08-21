@@ -40,6 +40,32 @@ Decisions use evidence available at the time. New entries append; old entries ar
 - **Changes, maximum three:** Ship a Windows-safe bundled CommonJS CLI while keeping the Playwright runtime external; exclude advisory observations from automatic gates; make fixed-mode E2E require zero axe violations, zero deterministic findings, and an informational verdict.
 - **Smallest adjustment made:** Generated regression tests navigate to the captured finding URL, not an assumed project base, so the scaffold reproduces the observed page.
 
+## 2026-08-21 — Ship onboarding and security hardening before broader promotion
+
+**Decision:** Release a narrow 0.1.4 hardening batch and keep the Proofrun product scope unchanged.
+
+**Date:** 2026-08-21
+
+**Signal:** A fresh maintainer audit found a broken npm-to-first-contract path, 15 dependency advisories, three open correctness/accessibility gaps, and a missing conventional favicon. Repository traffic showed clone activity but no verified independent user outcome.
+
+**Evidence:** Patched dependencies reduced `pnpm audit` from 15 advisories, including 1 critical and 6 high, to zero known advisories. The complete gate passes 38 unit tests, 3 pack tests, and 6 Chromium E2E tests. Both 0.1.4 archives pass clean install, manifest-derived version, machine-readable doctor, self-contained init, pack validation, and zero-vulnerability production audit checks. GitHub reports zero open Dependabot alerts after enabling alerts and automatic security updates. These are engineering results, not adoption evidence.
+
+**Interpretation:** The highest-value work is removing setup and trust blockers before requesting more user attention. Clone events cannot be interpreted as active users, and the hosted-platform architecture remains premature.
+
+**Chosen action:** Ship self-contained init, encoded-query redaction, accessible HTML navigation, richer JUnit metadata, patched dependencies, CI security gates, CodeQL, browser icon fallbacks, and optional container/Kubernetes site deployment.
+
+**Rejected alternatives:** Parallel browser workers, hosted evidence storage, automatic issue creation, broad autonomous exploration, or presenting repository traffic as traction.
+
+**Metric to watch next:** Three independent completed audits, first-report time, evidence opened, artifact kept, and a second run.
+**Review date:** After three independent trials or 2026-09-04, whichever comes first.
+
+### Milestone review
+
+- **New evidence:** Public-package smoke testing proved the old `init` output referenced a pack absent from npm archives; the new archive creates and validates its own journey without a repository clone.
+- **Direction:** Continue with the declared-journey wedge and begin observed onboarding trials.
+- **Changes, maximum three:** Reduce first-contract friction; make security maintenance continuous; separate static-site hosting from any future browser-worker platform.
+- **Smallest adjustment made:** No product-scope expansion; the release hardens the existing path and documents scale triggers.
+
 ## Entry template
 
 **Decision:**  

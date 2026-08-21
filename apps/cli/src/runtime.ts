@@ -17,6 +17,18 @@ export function playwrightCliPath(fromFile: string = runtimeModulePath()): strin
   return join(dirname(runtimeRequire.resolve("playwright/package.json")), "cli.js");
 }
 
+export function humanqaPackageVersion(fromFile: string = runtimeModulePath()): string {
+  const runtimeRequire = createRequire(fromFile);
+  const manifest = runtimeRequire("../package.json") as { version?: unknown };
+  if (
+    typeof manifest.version !== "string" ||
+    !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/u.test(manifest.version)
+  ) {
+    throw new Error("HumanQA package metadata contains an invalid version.");
+  }
+  return manifest.version;
+}
+
 export async function installChromiumBrowser(options: {
   withDependencies: boolean;
 }): Promise<void> {

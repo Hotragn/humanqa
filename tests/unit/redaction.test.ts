@@ -25,6 +25,38 @@ describe("redaction", () => {
     expect(result.value).not.toContain("super-secret-token");
   });
 
+  it.each([
+    [
+      "mixed-case key",
+      "https://example.test/projects?Access_Token=visible-secret&page=2",
+      "visible-secret"
+    ],
+    [
+      "percent-encoded email value",
+      "https://example.test/projects?contact=alice%40example.com&view=grid",
+      "alice"
+    ],
+    [
+      "percent-encoded signature key",
+      "https://example.test/projects?Sign%61ture=signed-value&tab=activity",
+      "signed-value"
+    ]
+  ])("redacts %s without removing ordinary route context", (_name, input, secretFragment) => {
+    const result = redactUrl(input);
+    expect(result.value).not.toContain(secretFragment);
+    expect(result.value).toMatch(/projects\?/u);
+    expect(result.value).toMatch(/(?:page=2|view=grid|tab=activity)/u);
+  });
+
+  it("preserves duplicate ordinary parameters while redacting each decoded value", () => {
+    const result = redactUrl(
+      "https://example.test/search?tag=quality&tag=alice%40example.com&sort=newest"
+    );
+    const sanitized = new URL(result.value);
+    expect(sanitized.searchParams.getAll("tag")).toEqual(["quality", "[REDACTED:email]"]);
+    expect(sanitized.searchParams.get("sort")).toBe("newest");
+  });
+
   it("redacts sensitive object keys recursively", () => {
     const result = redactUnknown({
       authorization: "Bearer secret-token-value",

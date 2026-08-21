@@ -217,6 +217,8 @@ export function renderHtml(report: AuditReport): string {
     * { box-sizing: border-box; }
     body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     a { color:var(--accent); text-underline-offset:3px; }
+    .skip-link { position:fixed; z-index:10; top:12px; left:12px; padding:10px 14px; color:#fff; background:var(--ink); transform:translateY(-180%); }
+    .skip-link:focus { transform:translateY(0); outline:3px solid var(--warn); outline-offset:3px; }
     .shell { width:min(1120px,calc(100% - 32px)); margin:0 auto; }
     header { padding:48px 0 28px; border-bottom:1px solid var(--line); }
     .eyebrow,.mono { font:700 12px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; }
@@ -256,6 +258,7 @@ export function renderHtml(report: AuditReport): string {
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#findings">Skip to findings</a>
   <header><div class="shell">
     <div class="eyebrow">HumanQA · evidence-first product quality</div>
     <h1>${htmlEscape(report.project.name)}</h1>
@@ -277,7 +280,7 @@ export function renderHtml(report: AuditReport): string {
       <p>Redaction ${report.settings.redact ? "enabled" : "disabled"}; screenshots ${report.settings.screenshots ? "enabled" : "disabled"}; offline ${report.settings.offline ? "enabled" : "disabled"}; LLM ${report.settings.llmEnabled ? "enabled" : "disabled"}.</p>
     </section>
     <section aria-labelledby="criteria-title"><h2 id="criteria-title">Acceptance criteria</h2><div class="table-wrap"><table><thead><tr><th>Criterion</th><th>Status</th><th>Evidence</th><th>Explanation</th></tr></thead><tbody>${criteria || '<tr><td>No criteria declared</td><td><span class="status status-review">review</span></td><td>Human review</td><td>Goal-only audits cannot prove acceptance.</td></tr>'}</tbody></table></div></section>
-    <section aria-labelledby="findings-title"><h2 id="findings-title">Evidence-backed findings</h2>${findingCards || "<p>No deterministic findings were produced in the exercised state.</p>"}</section>
+    <section id="findings" tabindex="-1" aria-labelledby="findings-title"><h2 id="findings-title">Evidence-backed findings</h2>${findingCards || "<p>No deterministic findings were produced in the exercised state.</p>"}</section>
     <section aria-labelledby="accessibility-title"><h2 id="accessibility-title">Accessibility scope</h2><p>${htmlEscape(report.accessibility.scopeNote)}</p><p>axe violations: ${String(report.accessibility.axeViolationCount)} · keyboard checks: ${String(report.accessibility.keyboardChecksCompleted)} · manual review: required.</p></section>
     <section aria-labelledby="limitations-title"><h2 id="limitations-title">Limitations</h2><ul>${report.limitations.map((item) => `<li>${htmlEscape(item)}</li>`).join("")}</ul></section>
   </main>
@@ -311,11 +314,11 @@ export function renderSarif(report: AuditReport): string {
         tool: {
           driver: {
             name: "HumanQA",
-            informationUri: "https://github.com/humanqa/humanqa",
-            version: "0.1.0",
+            informationUri: "https://github.com/Hotragn/humanqa",
+            version: report.toolVersion,
             rules: [...uniqueRules.values()].map((rule) => ({
               ...rule,
-              ...(rule.helpUri ? {} : { helpUri: "https://github.com/humanqa/humanqa" })
+              ...(rule.helpUri ? {} : { helpUri: "https://github.com/Hotragn/humanqa" })
             }))
           }
         },
@@ -373,13 +376,25 @@ export function renderJunit(report: AuditReport): string {
       return `<testcase classname="humanqa.${xmlEscape(finding.category)}" name="${xmlEscape(`${finding.id} ${finding.title}`)}" time="0">${failure}</testcase>`;
     })
     .join("");
+  const testCount = Math.max(report.findings.length, 1);
   return `<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HumanQA" tests="${String(report.findings.length)}" failures="${String(failures.length)}" time="${(report.browserEvidence.durationMs / 1000).toFixed(3)}">
+<testsuite name="HumanQA" tests="${String(testCount)}" failures="${String(failures.length)}" time="${(report.browserEvidence.durationMs / 1000).toFixed(3)}">
   <properties>
     <property name="verdict" value="${xmlEscape(report.summary.verdict)}"/>
     <property name="qualityScore" value="${String(report.summary.qualityScore)}"/>
     <property name="releaseRisk" value="${report.summary.releaseRisk.toFixed(2)}"/>
+    <property name="toolVersion" value="${xmlEscape(report.toolVersion)}"/>
+    <property name="nodeVersion" value="${xmlEscape(report.environment.nodeVersion)}"/>
+    <property name="platform" value="${xmlEscape(report.environment.platform)}"/>
+    <property name="browser" value="${xmlEscape(report.environment.browser)}"/>
+    <property name="browserVersion" value="${xmlEscape(report.environment.browserVersion)}"/>
+    <property name="viewportWidth" value="${String(report.environment.viewport.width)}"/>
+    <property name="viewportHeight" value="${String(report.environment.viewport.height)}"/>
     <property name="safeMode" value="${String(report.settings.safeMode)}"/>
+    <property name="redact" value="${String(report.settings.redact)}"/>
+    <property name="screenshots" value="${String(report.settings.screenshots)}"/>
+    <property name="offline" value="${String(report.settings.offline)}"/>
+    <property name="allowMutations" value="${String(report.settings.allowMutations)}"/>
   </properties>
   ${cases || '<testcase classname="humanqa.audit" name="No evidence-backed findings" time="0"/>'}
 </testsuite>

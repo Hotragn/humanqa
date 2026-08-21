@@ -28,8 +28,7 @@ export interface PackValidationFailure {
 }
 
 export type PackValidationResult =
-  | { success: true; value: ValidatedPack }
-  | { success: false; failure: PackValidationFailure };
+  { success: true; value: ValidatedPack } | { success: false; failure: PackValidationFailure };
 
 function compatibilityWarning(range: string): string | undefined {
   if (range === ">=0.1.0 <1.0.0" || range === "^0.1.0" || range === humanqaVersion)
@@ -91,7 +90,7 @@ export async function validatePackFile(path: string): Promise<PackValidationResu
         compatibility: result.data.compatibility,
         tags: result.data.tags
       },
-      pack: result.data as Record<string, unknown> | JourneyPack,
+      pack: result.data,
       warnings: warning ? [warning] : []
     }
   };

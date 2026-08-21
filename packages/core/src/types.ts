@@ -82,8 +82,10 @@ export interface Finding {
   }>;
 }
 
-export interface FindingDraft
-  extends Omit<Finding, "id" | "priorityScore" | "priorityLabel" | "releaseRisk" | "aiInsights"> {
+export interface FindingDraft extends Omit<
+  Finding,
+  "id" | "priorityScore" | "priorityLabel" | "releaseRisk" | "aiInsights"
+> {
   targetKey: string;
 }
 
@@ -169,6 +171,7 @@ export interface QualityThresholds {
 
 export interface AuditReport {
   schemaVersion: "0.1.0";
+  toolVersion: string;
   runId: string;
   generatedAt: string;
   project: { name: string; baseUrl: string };

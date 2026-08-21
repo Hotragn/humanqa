@@ -4,6 +4,34 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-08-21
+
+### Added
+
+- Self-contained `humanqa init` onboarding that creates a Quality Contract and validated local smoke journey, with project name and authorized URL options.
+- Machine-readable `humanqa doctor --json` output and warning-level diagnostics for optional repository packs.
+- Legacy ICO, Apple touch, and 192/512 PNG browser identity assets alongside the SVG favicon.
+- Container and Kubernetes website deployment, release-built GHCR image workflow, architecture capacity triggers, and an evidence-based traction operating plan.
+- Weekly Dependabot maintenance for npm and GitHub Actions dependencies.
+
+### Changed
+
+- CLI version metadata is read from the published package manifest and carried into reports, SARIF, and JUnit instead of being duplicated in source.
+- JUnit now records non-secret runtime, browser, viewport, redaction, screenshot, offline, and safety settings for CI consumers.
+- Public quick starts no longer reference packs that are absent from npm archives.
+
+### Fixed
+
+- Mixed-case and percent-encoded query secrets and personal identifiers are redacted without collapsing duplicate ordinary parameters.
+- Standalone HTML reports now provide a visible-on-focus skip link with a valid findings destination, including empty reports.
+- SARIF links now point to the canonical public repository.
+- The conventional `/favicon.ico` path is served instead of returning 404.
+
+### Security
+
+- Upgraded Playwright, axe-core, Vite, Vitest, esbuild, Zod, YAML, and the TypeScript toolchain to patched releases.
+- CI and npm publication now fail on high or critical dependency advisories.
+
 ## [0.1.3] - 2026-08-19
 
 ### Security
@@ -52,7 +80,8 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 
 - Local-first defaults, common text redaction, screenshot opt-out, offline loopback mode, high-impact action blocking, and explicit external-adapter consent boundary.
 
-[Unreleased]: https://github.com/Hotragn/humanqa/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/Hotragn/humanqa/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/Hotragn/humanqa/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/Hotragn/humanqa/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/Hotragn/humanqa/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/Hotragn/humanqa/compare/v0.1.0...v0.1.1

@@ -20,7 +20,9 @@
     <meta property="og:image" content="https://humanqa-nine.vercel.app/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://humanqa-nine.vercel.app/docs/" />
+    <link rel="icon" href="/favicon.ico" sizes="64x64" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="mask-icon" href="/icon.svg" color="#191b18" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Documentation | HumanQA</title>
@@ -85,7 +87,7 @@
             <span data-icon="capture"></span>
             <div>
               <h2>Quick start</h2>
-              <p>Run the included deterministic fixture before adapting a real target.</p>
+              <p>Create a self-contained starter, then point it at an authorized local target.</p>
             </div>
           </div>
           <ol class="doc-steps">
@@ -94,8 +96,8 @@
               <p>Use Node.js 20 or newer, pnpm, and Chromium.</p>
             </li>
             <li>
-              <strong>Start the fixture</strong>
-              <p>The default mode contains deliberate, reproducible defects.</p>
+              <strong>Initialize</strong>
+              <p>Generate a safe Quality Contract and local smoke journey.</p>
             </li>
             <li>
               <strong>Audit the journey</strong>
@@ -104,19 +106,17 @@
           </ol>
           <div class="code-block">
             <button type="button" data-copy="#quickstart-code">Copy</button>
-            <pre id="quickstart-code" tabindex="0"><code>corepack enable
-pnpm install --frozen-lockfile
-pnpm humanqa install-browser
-pnpm demo
-pnpm humanqa audit http://127.0.0.1:4173 --offline --journey packs/journeys/saas-project-creation.yaml</code></pre>
+            <pre id="quickstart-code" tabindex="0"><code>npx humanqa install-browser
+npx humanqa init --name "My web application" --url http://127.0.0.1:3000
+npx humanqa verify --config humanqa.yml</code></pre>
           </div>
           <div class="callout">
             <span data-icon="check"></span>
             <div>
-              <strong>Expected broken-fixture result</strong>
+              <strong>Self-contained npm onboarding</strong>
               <p>
-                Block release, score 0/100, eight deterministic findings, seven screenshots, and a
-                Playwright trace.
+                The generated contract references <code>humanqa/journeys/smoke.yaml</code>, not a
+                repository-only pack. Review the URL and journey before running it.
               </p>
             </div>
           </div>
@@ -134,18 +134,16 @@ pnpm humanqa audit http://127.0.0.1:4173 --offline --journey packs/journeys/saas
             <button type="button" data-copy="#contract-code">Copy</button>
             <pre id="contract-code" tabindex="0"><code>project:
   name: Example SaaS
-  baseUrl: http://127.0.0.1:4173
+  baseUrl: http://127.0.0.1:3000
 defaults:
   safeMode: true
   redact: true
   screenshots: true
 quality_contracts:
-  - id: project-creation
-    persona: first-time-saas-user
-    journey: packs/journeys/saas-project-creation.yaml
+  - id: application-smoke
+    journey: humanqa/journeys/smoke.yaml
     acceptance_criteria:
-      - User can create a project
-      - User sees persistent success confirmation
+      - Application document is visible
     thresholds:
       max_critical_findings: 0
       min_quality_score: 80</code></pre>
@@ -172,7 +170,7 @@ quality_contracts:
             ><code role="listitem">humanqa list-packs</code
             ><code role="listitem">humanqa validate-pack &lt;path&gt;</code
             ><code role="listitem">humanqa install-browser [--with-deps]</code
-            ><code role="listitem">humanqa doctor</code
+            ><code role="listitem">humanqa doctor [--json]</code
             ><code role="listitem"
               >humanqa github comment --report &lt;report.json&gt; --dry-run</code
             >
@@ -304,7 +302,7 @@ pnpm humanqa validate-pack path/to/new-pack.yaml</code></pre>
           </div>
           <div class="code-block">
             <button type="button" data-copy="#ci-code">Copy</button>
-            <pre id="ci-code" tabindex="0"><code>- uses: pnpm/action-setup@v4
+            <pre id="ci-code" tabindex="0"><code>- uses: pnpm/action-setup@v6
 - run: pnpm install --frozen-lockfile
 - run: pnpm humanqa install-browser --with-deps
 - run: pnpm humanqa verify --config humanqa.yml</code></pre>

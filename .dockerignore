@@ -1,0 +1,12 @@
+.git
+.github
+node_modules
+**/node_modules
+**/dist
+humanqa-output
+release-artifacts
+test-results
+*.log
+.env
+.env.*
+

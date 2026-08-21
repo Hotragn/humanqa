@@ -36,8 +36,13 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       await page.goto(baseUrl, { waitUntil: "networkidle" });
 
       await expect(page.title()).resolves.toContain("HumanQA");
-      await expect(page.locator('link[rel="icon"]').getAttribute("href")).resolves.toBe(
-        "/icon.svg"
+      await expect(
+        page
+          .locator('link[rel="icon"]')
+          .evaluateAll((links) => links.map((link) => link.getAttribute("href")))
+      ).resolves.toEqual(["/favicon.ico", "/icon.svg"]);
+      await expect(page.locator('link[rel="apple-touch-icon"]').getAttribute("href")).resolves.toBe(
+        "/apple-touch-icon.png"
       );
       await expect(page.locator('link[rel="manifest"]').getAttribute("href")).resolves.toBe(
         "/site.webmanifest"
@@ -47,11 +52,26 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       expect(iconResponse.ok()).toBe(true);
       expect(iconResponse.headers()["content-type"]).toContain("image/svg+xml");
 
+      for (const asset of [
+        "/favicon.ico",
+        "/apple-touch-icon.png",
+        "/icon-192.png",
+        "/icon-512.png"
+      ]) {
+        const response = await page.request.get(`${baseUrl}${asset}`);
+        expect(response.ok(), asset).toBe(true);
+        expect(response.headers()["content-type"], asset).toMatch(/^image\//u);
+      }
+
       const manifestResponse = await page.request.get(`${baseUrl}/site.webmanifest`);
       expect(manifestResponse.ok()).toBe(true);
       expect(await manifestResponse.json()).toMatchObject({
         name: "HumanQA",
-        icons: [{ src: "/icon.svg", type: "image/svg+xml" }]
+        icons: [
+          { src: "/icon.svg", type: "image/svg+xml" },
+          { src: "/icon-192.png", type: "image/png", sizes: "192x192" },
+          { src: "/icon-512.png", type: "image/png", sizes: "512x512" }
+        ]
       });
       await expect(page.getByRole("heading", { level: 1 }).textContent()).resolves.toContain(
         "Know what broke"
@@ -90,9 +110,11 @@ describe.sequential("HumanQA marketing and documentation site", () => {
       await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
       await page.goto(`${baseUrl}/docs/`, { waitUntil: "networkidle" });
 
-      await expect(page.locator('link[rel="icon"]').getAttribute("href")).resolves.toBe(
-        "/icon.svg"
-      );
+      await expect(
+        page
+          .locator('link[rel="icon"]')
+          .evaluateAll((links) => links.map((link) => link.getAttribute("href")))
+      ).resolves.toContain("/favicon.ico");
 
       await page.keyboard.press("Tab");
       expect(await page.locator(":focus").textContent()).toContain("Skip to documentation");

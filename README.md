@@ -26,8 +26,11 @@ Turn product requirements and live user journeys into:
 
 ```bash
 npx humanqa install-browser
+npx humanqa init --name "My web application" --url https://staging.example.test
 npx humanqa verify --config humanqa.yml
 ```
+
+`init` creates both `humanqa.yml` and a validated local smoke journey, so npm users do not need to clone this repository or copy a pack before their first Quality Contract run.
 
 `humanqa` keeps the memorable `npx humanqa` command. The identical official CLI is also published as [`@humanqa/cli`](https://www.npmjs.com/package/@humanqa/cli) under the HumanQA npm organization.
 
@@ -131,7 +134,7 @@ humanqa generate-test <report.json>
 humanqa list-packs
 humanqa validate-pack <path>
 humanqa install-browser [--with-deps]
-humanqa doctor
+humanqa doctor [--json]
 humanqa github comment --report <report.json> --dry-run
 ```
 
@@ -146,6 +149,8 @@ humanqa audit https://staging.example.test --allow-mutations # disposable test e
 ```
 
 Safe mode, redaction, and screenshots are enabled by default. `--offline` permits only a loopback target and blocks cross-origin requests. Goal-only audits inspect one page conservatively; declared journeys are required for strong completion claims.
+
+`humanqa init --url <authorized-url> --name <project>` creates a self-contained starter under `humanqa/journeys/`. Review that journey before adapting it to mutation-capable product flows.
 
 ## Example output
 
@@ -327,8 +332,8 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
       - run: pnpm humanqa install-browser --with-deps
       - run: pnpm humanqa verify --config humanqa.yml
@@ -368,6 +373,7 @@ packs/          Versioned community data packs and JSON schemas
 skills/         Five portable evidence-constrained Agent Skills
 examples/       SaaS, ecommerce, and B2B admin contracts
 tests/          Unit, pack, redaction, reporter, generator, browser, and E2E coverage
+deploy/         Optional container and Kubernetes website deployment
 docs/           Discovery evidence, implementation decisions, safety, contribution, and launch plans
 .github/        CI, issue forms, templates, and detailed seed issues
 ```
@@ -428,5 +434,7 @@ Useful contribution paths:
 - run the first-user experiment and share anonymized workflow evidence.
 
 Recommended GitHub topics: `playwright`, `testing`, `qa`, `accessibility`, `ux`, `ux-testing`, `developer-tools`, `product-management`, `ai-agents`, `agent-skills`, `github-actions`, `quality-engineering`.
+
+Architecture, capacity triggers, and the optional hosted-worker design are documented in [Architecture and scaling](docs/architecture-and-scaling.md). The static site can also be self-hosted with the reviewed [container and Kubernetes deployment](docs/deployment.md).
 
 Apache-2.0 licensed. No adoption, benchmark, security, compliance, or performance claims are implied by this README.

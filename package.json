@@ -1,6 +1,6 @@
 {
   "name": "humanqa-monorepo",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "description": "Evidence-first product quality checks for web apps",
   "license": "Apache-2.0",
@@ -37,6 +37,7 @@
     "pack:cli": "node scripts/pack-cli.mjs",
     "release:validate": "pnpm check && pnpm build && pnpm pack:cli && node scripts/validate-release.mjs",
     "release:publish": "node scripts/publish-release.mjs",
+    "security:audit": "pnpm audit --audit-level high",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
@@ -47,16 +48,16 @@
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:packs && pnpm test:e2e"
   },
   "devDependencies": {
-    "@eslint/js": "9.34.0",
-    "@playwright/test": "1.55.1",
-    "@types/node": "24.3.0",
-    "eslint": "9.34.0",
-    "prettier": "3.6.2",
-    "tsup": "8.5.0",
-    "tsx": "4.20.5",
-    "typescript": "5.9.2",
-    "typescript-eslint": "8.41.0",
-    "vite": "7.1.3",
-    "vitest": "3.2.4"
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.13.3",
+    "eslint": "9.39.5",
+    "prettier": "3.9.6",
+    "tsup": "8.5.1",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.67.0",
+    "vite": "7.3.6",
+    "vitest": "3.2.7"
   }
 }

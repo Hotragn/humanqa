@@ -14,7 +14,6 @@ import {
   redactText,
   redactUrl,
   timestampSlug,
-  writeUtf8,
   type AuditReport,
   type AuditSettings,
   type HumanqaConfig,
@@ -35,9 +34,10 @@ import {
 } from "@humanqa/scorer";
 import { writeGeneratedTest } from "@humanqa/test-generator";
 
-import { formatCliError, installChromiumBrowser } from "./runtime.js";
+import { initializeHumanqaProject } from "./init.js";
+import { formatCliError, humanqaPackageVersion, installChromiumBrowser } from "./runtime.js";
 
-const cliVersion = "0.1.3";
+const cliVersion = humanqaPackageVersion();
 const repositoryRoot = process.cwd();
 
 interface AuditOptions {
@@ -169,6 +169,7 @@ async function performAudit(options: AuditExecutionOptions): Promise<AuditReport
   ];
   const report: AuditReport = {
     schemaVersion: "0.1.0",
+    toolVersion: cliVersion,
     runId: `hq-${randomUUID()}`,
     generatedAt: new Date().toISOString(),
     project: {
@@ -319,49 +320,20 @@ async function auditCommand(url: string, options: AuditOptions): Promise<void> {
   if (report.summary.verdict === "Block release") process.exitCode = 1;
 }
 
-const starterConfig = `project:
-  name: Example SaaS
-  baseUrl: http://127.0.0.1:4173
-
-defaults:
-  safeMode: true
-  redact: true
-  screenshots: true
-  browser: chromium
-  offline: false
-  viewport:
-    width: 1440
-    height: 900
-  mobile: false
-
-quality_contracts:
-  - id: project-creation-complete
-    name: SaaS project creation works
-    persona: first-time-saas-user
-    journey: packs/journeys/saas-project-creation.yaml
-    acceptance_criteria:
-      - User can create a project
-      - User sees a persistent success confirmation
-      - All interactive controls are keyboard reachable
-      - No critical accessibility violations are present
-    thresholds:
-      max_duration_seconds: 120
-      max_critical_findings: 0
-      min_quality_score: 80
-`;
-
-async function initCommand(options: { config: string; force: boolean }): Promise<void> {
-  const target = resolve(options.config);
-  const exists = await access(target).then(
-    () => true,
-    () => false
-  );
-  if (exists && !options.force) {
-    throw new Error(`${target} already exists. Use --force only after reviewing the current file.`);
-  }
-  await writeUtf8(target, starterConfig);
+async function initCommand(options: {
+  config: string;
+  name: string;
+  url: string;
+  force: boolean;
+}): Promise<void> {
+  const initialized = await initializeHumanqaProject({
+    configPath: options.config,
+    projectName: options.name,
+    baseUrl: options.url,
+    force: options.force
+  });
   process.stdout.write(
-    `Created ${target}\nNext: review the safe defaults, then run pnpm humanqa verify --config ${options.config}\n`
+    `Created ${initialized.configPath}\nCreated ${initialized.journeyPath}\nNext: review the URL and starter journey, then run npx humanqa verify --config ${options.config}\n`
   );
 }
 
@@ -409,12 +381,16 @@ async function verifyCommand(options: { config: string; output?: string }): Prom
   if (blocked.length > 0) process.exitCode = 1;
 }
 
-async function doctorCommand(): Promise<void> {
-  const checks: Array<{ name: string; ok: boolean; detail: string }> = [];
+async function doctorCommand(options: { json: boolean }): Promise<void> {
+  const checks: Array<{
+    name: string;
+    status: "pass" | "warn" | "fail";
+    detail: string;
+  }> = [];
   const nodeMajor = Number(process.versions.node.split(".")[0]);
   checks.push({
     name: "Node.js",
-    ok: nodeMajor >= 20,
+    status: nodeMajor >= 20 ? "pass" : "fail",
     detail: `${process.version}; HumanQA requires Node.js 20 or newer`
   });
   const browserPath = chromium.executablePath();
@@ -424,7 +400,7 @@ async function doctorCommand(): Promise<void> {
   );
   checks.push({
     name: "Playwright Chromium",
-    ok: browserPresent,
+    status: browserPresent ? "pass" : "fail",
     detail: browserPresent ? browserPath : "Not installed; run npx humanqa install-browser"
   });
   const packsPresent = await access(join(repositoryRoot, "packs")).then(
@@ -433,16 +409,26 @@ async function doctorCommand(): Promise<void> {
   );
   checks.push({
     name: "Starter packs",
-    ok: packsPresent,
-    detail: packsPresent ? join(repositoryRoot, "packs") : "Pack directory not found"
+    status: packsPresent ? "pass" : "warn",
+    detail: packsPresent
+      ? join(repositoryRoot, "packs")
+      : "No repository packs found; run humanqa init to create a self-contained starter journey"
   });
-  for (const check of checks) {
-    process.stdout.write(`${check.ok ? "PASS" : "FAIL"} ${check.name}: ${check.detail}\n`);
+  const result = {
+    version: cliVersion,
+    ok: checks.every((check) => check.status !== "fail"),
+    checks,
+    privacy: "No telemetry or external LLM adapter is enabled by this command."
+  };
+  if (options.json) {
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+  } else {
+    for (const check of checks) {
+      process.stdout.write(`${check.status.toUpperCase()} ${check.name}: ${check.detail}\n`);
+    }
+    process.stdout.write(`Privacy: ${result.privacy}\n`);
   }
-  process.stdout.write(
-    "Privacy: no telemetry or external LLM adapter is enabled by this command.\n"
-  );
-  if (checks.some((check) => !check.ok)) process.exitCode = 1;
+  if (!result.ok) process.exitCode = 1;
 }
 
 const program = new Command();
@@ -455,9 +441,11 @@ program
 
 program
   .command("init")
-  .description("Create a reviewed, safe-by-default HumanQA quality contract")
+  .description("Create a self-contained, safe-by-default Quality Contract and starter journey")
   .option("-c, --config <path>", "configuration path", "humanqa.yml")
-  .option("--force", "overwrite an existing configuration after review", false)
+  .option("--name <name>", "project name", "My web application")
+  .option("--url <url>", "authorized application URL", "http://127.0.0.1:3000")
+  .option("--force", "overwrite generated starter files after review", false)
   .action(initCommand);
 
 program
@@ -557,6 +545,7 @@ program
 program
   .command("doctor")
   .description("Check the local HumanQA runtime without sending data")
+  .option("--json", "emit stable machine-readable diagnostics", false)
   .action(doctorCommand);
 
 const github = program.command("github").description("Format future-ready GitHub outputs locally");
