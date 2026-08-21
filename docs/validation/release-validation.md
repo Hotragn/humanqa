@@ -10,7 +10,7 @@
 
 The local source and generated artifacts passed the complete `pnpm release:validate` gate. Both npm archives contain only the five intended files and report a working `humanqa 0.1.3` executable. GitHub Actions rebuilt and revalidated the packages, then published both CI archives through npm trusted-publisher OIDC. Independent clean public-registry installs of both package names passed version and zero-vulnerability production-audit checks; the organization package also passed browser installation and a production-site self-audit. The website passed desktop, mobile, keyboard, search, responsive-overflow, browser-identity, original-icon-family, and automated accessibility checks in light and dark color schemes.
 
-The validated source is public at `Hotragn/humanqa`, the production website is live at `https://humanqa-nine.vercel.app`, and the packages are public at `https://www.npmjs.com/package/humanqa` and `https://www.npmjs.com/package/@humanqa/cli`.
+The validated source is public at `Hotragn/humanqa`, the production website is live at `https://humanqa-oss.vercel.app`, and the packages are public at `https://www.npmjs.com/package/humanqa` and `https://www.npmjs.com/package/@humanqa/cli`.
 
 ## Gate results
 
@@ -36,7 +36,7 @@ The end-to-end suite exercised rather than mocked the following paths:
 - fixed fixture audit: produces `Informational`, score 100/100, and 0 findings;
 - generated regression: runs the evidence-derived Playwright test against the fixed fixture;
 - first-use browser setup: with an intentionally empty Playwright cache, the CLI emits the exact recovery command, `humanqa install-browser` installs the version-matched Chromium runtime, and the next audit succeeds;
-- public-package self-audit: a clean `@humanqa/cli@0.1.3` registry install audited `https://humanqa-nine.vercel.app` in safe, redacted, conservative-inspection mode and produced `Informational`, score 100/100, 0 findings, 0 console errors, and 0 automated Axe violations;
+- public-package self-audit: a clean `@humanqa/cli@0.1.3` registry install audited `https://humanqa-oss.vercel.app` in safe, redacted, conservative-inspection mode and produced `Informational`, score 100/100, 0 findings, 0 console errors, and 0 automated Axe violations;
 - marketing site: loads real fixture-report imagery, renders at least 18 glyph instances with at least 10 distinct glyph geometries, serves the HumanQA SVG favicon and web-app manifest, has no desktop horizontal overflow, and returns zero automated Axe violations;
 - documentation site: keyboard focus reaches the skip link first, documentation search filters to the matching section, and light and dark modes return zero automated Axe violations;
 - mobile site: navigation expands with correct ARIA state and both main and docs routes remain within a 390 px viewport.

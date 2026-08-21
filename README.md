@@ -15,7 +15,7 @@
 
 **Evidence-first product quality checks for web apps.**
 
-[Website](https://humanqa-nine.vercel.app/) · [Documentation](https://humanqa-nine.vercel.app/docs/) · [Validation report](docs/validation/release-validation.md) · [Brand system](docs/brand-system.md)
+[Website](https://humanqa-oss.vercel.app/) · [Documentation](https://humanqa-oss.vercel.app/docs/) · [Validation report](docs/validation/release-validation.md) · [Brand system](docs/brand-system.md)
 
 Turn product requirements and live user journeys into:
 
