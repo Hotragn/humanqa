@@ -26,9 +26,10 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsup && pnpm --filter @humanqa/demo-dashboard build && pnpm --filter @humanqa/site build",
-    "dev": "tsx apps/cli/src/bin.ts",
-    "humanqa": "tsx apps/cli/src/bin.ts",
+    "build:packages": "tsup",
+    "build": "pnpm build:packages && pnpm --filter @humanqa/demo-dashboard build && pnpm --filter @humanqa/site build",
+    "dev": "pnpm build:packages && node apps/cli/dist/bin.cjs",
+    "humanqa": "pnpm build:packages && node apps/cli/dist/bin.cjs",
     "demo": "pnpm --filter @humanqa/demo-dashboard dev",
     "site": "pnpm --filter @humanqa/site dev",
     "site:assets": "node scripts/capture-site-assets.mjs",

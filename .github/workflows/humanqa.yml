@@ -1,6 +1,8 @@
 name: HumanQA
 
 on:
+  push:
+    branches: [main]
   pull_request:
 
 permissions:
@@ -36,7 +38,7 @@ jobs:
         run: pnpm humanqa verify --config humanqa.example.yml
       - name: Upload local evidence bundle
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: humanqa-report
           path: humanqa-output/

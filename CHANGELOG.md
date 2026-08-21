@@ -26,6 +26,8 @@ All notable changes to HumanQA are documented here. The format follows Keep a Ch
 - Standalone HTML reports now provide a visible-on-focus skip link with a valid findings destination, including empty reports.
 - SARIF links now point to the canonical public repository.
 - The conventional `/favicon.ico` path is served instead of returning 404.
+- Repository CLI runs now execute the same bundled entrypoint shipped to npm, avoiding build-tool helper leakage inside Playwright's browser context.
+- The GHCR release workflow now uses the Buildx container driver required for provenance and SBOM attestations.
 
 ### Security
 

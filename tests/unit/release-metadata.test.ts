@@ -46,6 +46,11 @@ describe("release metadata", () => {
   it("keeps website and npm deployments explicit and provenance-aware", async () => {
     const vercel = await json("apps/site/vercel.json");
     const npm = await readFile(join(root, ".github/workflows/publish-npm.yml"), "utf8");
+    const humanqa = await readFile(join(root, ".github/workflows/humanqa.yml"), "utf8");
+    const container = await readFile(
+      join(root, ".github/workflows/publish-site-image.yml"),
+      "utf8"
+    );
     const publisher = await readFile(join(root, "scripts/publish-release.mjs"), "utf8");
     const rootManifest = await json("package.json");
     const scripts = rootManifest["scripts"] as Record<string, string>;
@@ -55,6 +60,13 @@ describe("release metadata", () => {
     expect(npm).toContain("id-token: write");
     expect(npm).toContain("pnpm release:validate");
     expect(npm).toContain("pnpm release:publish");
+    expect(humanqa).toContain("actions/upload-artifact@v7");
+    expect(container).toContain("docker/setup-buildx-action@v4");
+    expect(container).toContain("provenance: mode=max");
+    expect(container).toContain("sbom: true");
+    expect(scripts["build:packages"]).toBe("tsup");
+    expect(scripts["humanqa"]).toContain("node apps/cli/dist/bin.cjs");
+    expect(scripts["humanqa"]).not.toContain("tsx");
     expect(scripts["release:publish"]).toBe("node scripts/publish-release.mjs");
     expect(publisher).toContain('name: "@humanqa/cli"');
     expect(publisher).toContain('"--provenance"');
