@@ -1,104 +1,120 @@
-# HumanQA v0.1.3 release validation
+# HumanQA v0.1.4 release validation
 
-**Validated:** 2026-08-19
+**Validated:** 2026-08-21
 
-**Disposition:** Public repository, Vercel production site, GitHub `v0.1.3` release, and provenance-attested `humanqa@0.1.3` plus `@humanqa/cli@0.1.3` npm packages live
+**Release commit:** `c82e961d04c6c3b8187289cbca26cb1e79c49267`
 
-**Scope:** CLI package, deterministic audit vertical slice, starter packs, marketing site, documentation site, release automation, and hosting artifact
+**Disposition:** Public GitHub release, public Vercel site, owner-only Sites deployment, provenance-attested npm packages, and provenance/SBOM-attested GHCR image are live.
 
 ## Executive result
 
-The local source and generated artifacts passed the complete `pnpm release:validate` gate. Both npm archives contain only the five intended files and report a working `humanqa 0.1.3` executable. GitHub Actions rebuilt and revalidated the packages, then published both CI archives through npm trusted-publisher OIDC. Independent clean public-registry installs of both package names passed version and zero-vulnerability production-audit checks; the organization package also passed browser installation and a production-site self-audit. The website passed desktop, mobile, keyboard, search, responsive-overflow, browser-identity, original-icon-family, and automated accessibility checks in light and dark color schemes.
+HumanQA v0.1.4 passed the complete local and GitHub release gates. Both npm identities were rebuilt from the tagged source, published through npm trusted-publisher OIDC, and verified from the public registry. The release also produced a public self-hosted website image through GitHub's Buildx environment after the image workflow was exercised end to end.
 
-The validated source is public at `Hotragn/humanqa`, the production website is live at `https://humanqa-oss.vercel.app`, and the packages are public at `https://www.npmjs.com/package/humanqa` and `https://www.npmjs.com/package/@humanqa/cli`.
+The final source is at [Hotragn/humanqa](https://github.com/Hotragn/humanqa), the public website is [humanqa-oss.vercel.app](https://humanqa-oss.vercel.app/), and the release is [v0.1.4](https://github.com/Hotragn/humanqa/releases/tag/v0.1.4). The former `humanqa-nine.vercel.app` project domain was removed and returns 404.
 
 ## Gate results
 
-| Gate                  | Observed result                                                         |
-| --------------------- | ----------------------------------------------------------------------- |
-| Prettier              | Pass, all matched files formatted                                       |
-| ESLint                | Pass, zero errors                                                       |
-| TypeScript            | Pass, strict no-emit type check                                         |
-| Unit tests            | Pass, 29 of 29 across 8 files                                           |
-| Pack contracts        | Pass, 3 of 3                                                            |
-| Browser E2E           | Pass, 6 of 6 across 2 files                                             |
-| Library and CLI build | Pass, 10 internal ESM packages plus bundled CJS CLI                     |
-| Demo fixture build    | Pass, Vite 7 production build                                           |
-| Website build         | Pass, Vite 8 production build with Sites metadata and worker entrypoint |
-| npm archive validator | Pass for both package names, status `publish-ready`                     |
-| Public npm smoke test | Pass for both names: install, version, zero-vulnerability audit         |
+| Gate                  | Observed result                                                                        |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| Prettier              | Pass, all matched files formatted                                                      |
+| ESLint                | Pass, zero errors                                                                      |
+| TypeScript            | Pass, strict no-emit type check                                                        |
+| Unit tests            | Pass, 39 of 39 across 9 files                                                          |
+| Pack contracts        | Pass, 3 of 3                                                                           |
+| Chromium E2E          | Pass, 6 of 6 across 2 files                                                            |
+| Standalone contract   | Pass, `Informational`, score 100/100, 0 findings                                       |
+| Builds                | Pass for 10 internal ESM packages, bundled CJS CLI, demo, and website                  |
+| npm archive validator | Pass for both package identities, status `publish-ready`                               |
+| Dependency audit      | Pass, zero known advisories at validation time                                         |
+| Code scanning         | Pass, zero open CodeQL alerts                                                          |
+| Dependency scanning   | Pass, zero open Dependabot alerts                                                      |
+| Public website        | Pass for home, docs, conventional ICO, PNG icon, canonical URL, and current test proof |
+| Container publication | Pass with Buildx provenance and SBOM attestations                                      |
+
+GitHub evidence:
+
+- [CI run 32530053386](https://github.com/Hotragn/humanqa/actions/runs/32530053386)
+- [CodeQL run 32530053349](https://github.com/Hotragn/humanqa/actions/runs/32530053349)
+- [standalone HumanQA run 32530053326](https://github.com/Hotragn/humanqa/actions/runs/32530053326)
+- [npm publication run 32530328963](https://github.com/Hotragn/humanqa/actions/runs/32530328963)
+- [GHCR image publication run 32530328971](https://github.com/Hotragn/humanqa/actions/runs/32530328971)
 
 ## Behavioral evidence
 
-The end-to-end suite exercised rather than mocked the following paths:
+The suite exercised real browser and package boundaries rather than only mocks:
 
-- broken fixture audit: produces `Block release`, score 0/100, and 8 deterministic findings;
-- fixed fixture audit: produces `Informational`, score 100/100, and 0 findings;
-- generated regression: runs the evidence-derived Playwright test against the fixed fixture;
-- first-use browser setup: with an intentionally empty Playwright cache, the CLI emits the exact recovery command, `humanqa install-browser` installs the version-matched Chromium runtime, and the next audit succeeds;
-- public-package self-audit: a clean `@humanqa/cli@0.1.3` registry install audited `https://humanqa-oss.vercel.app` in safe, redacted, conservative-inspection mode and produced `Informational`, score 100/100, 0 findings, 0 console errors, and 0 automated Axe violations;
-- marketing site: loads real fixture-report imagery, renders at least 18 glyph instances with at least 10 distinct glyph geometries, serves the HumanQA SVG favicon and web-app manifest, has no desktop horizontal overflow, and returns zero automated Axe violations;
-- documentation site: keyboard focus reaches the skip link first, documentation search filters to the matching section, and light and dark modes return zero automated Axe violations;
-- mobile site: navigation expands with correct ARIA state and both main and docs routes remain within a 390 px viewport.
+- the broken fixture produces `Block release`, score 0/100, and 8 deterministic findings;
+- the fixed fixture produces `Informational`, score 100/100, and 0 findings;
+- an evidence-derived Playwright regression runs against the fixed fixture;
+- `humanqa init` creates both a self-contained Quality Contract and a validated local smoke journey, including when installed from the public `@humanqa/cli@0.1.4` package;
+- `humanqa doctor --json` reports machine-readable diagnostics without treating repository-only starter packs as an npm installation failure;
+- mixed-case and percent-encoded secret keys, encoded identity values, duplicate ordinary query parameters, and sensitive DOM input values have regression coverage;
+- JUnit environment/safety properties, SARIF version/repository metadata, and HTML report skip-link behavior have reporter coverage;
+- a public-registry `@humanqa/cli@0.1.4` audit of the live website returned `Informational`, score 100/100, 0 findings, 0 console errors, 0 network errors, and 0 automated Axe violations.
 
 Automated Axe results are bounded evidence, not a claim of complete WCAG conformance. Manual assistive-technology and usability review remain appropriate before a broad public launch.
 
 ## npm package inspection
 
-Archives: `release-artifacts/humanqa-0.1.3.tgz` and `release-artifacts/humanqa-cli-0.1.3.tgz`
+Archives: `release-artifacts/humanqa-0.1.4.tgz` and `release-artifacts/humanqa-cli-0.1.4.tgz`
 
-| Property                                   | Observed value                                                                         |
-| ------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Packages                                   | `humanqa@0.1.3`, `@humanqa/cli@0.1.3`                                                  |
-| Compressed sizes                           | 1,071,684 bytes; 1,071,683 bytes                                                       |
-| Files                                      | 5 in each archive                                                                      |
-| Contents                                   | `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, `README.md`             |
-| Runtime dependencies                       | `playwright@1.55.1` only                                                               |
-| Workspace references in published manifest | None                                                                                   |
-| CLI version check                          | `0.1.3` for both names                                                                 |
-| Access                                     | Public                                                                                 |
-| Registry checksums                         | `42b1170922723f8a38052da24d5163985f3b1f8c`; `fb1d12c717ffa6fddbb569b60727bdd3fcafa95e` |
-| Registry installs                          | Pass from independent clean scratch directories                                        |
-| Production dependency audits               | 0 vulnerabilities for both names                                                       |
-| Browser bootstrap                          | Pass with package-local Playwright CLI and version-matched Chromium                    |
-| Production self-audit                      | `Informational`, score 100/100, 0 findings                                             |
-| Provenance                                 | SLSA provenance v1 attestations for both packages from GitHub Actions OIDC             |
+| Property           | `humanqa@0.1.4`                            | `@humanqa/cli@0.1.4`                       |
+| ------------------ | ------------------------------------------ | ------------------------------------------ |
+| Compressed size    | 1,152,664 bytes                            | 1,152,669 bytes                            |
+| Files              | 5                                          | 5                                          |
+| Runtime dependency | `playwright@1.62.1`                        | `playwright@1.62.1`                        |
+| Registry SHA-1     | `1ec3807aa6f31ed323a03af30e11631a86c4a12d` | `a3f411e0ccf6e2b58dcc0f5deb0fb725c384a331` |
+| CLI version        | `0.1.4`                                    | `0.1.4`                                    |
+| Access             | Public                                     | Public                                     |
+| Provenance         | SLSA provenance v1                         | SLSA provenance v1                         |
 
-The archive validator also rejects source trees, `node_modules`, `.env` files, HumanQA output, missing license/readme/bin files, workspace references, unexpected runtime dependencies, archives above 3 MB, and a missing executable shebang.
+Each archive contains only `dist/bin.cjs`, `dist/bin.cjs.map`, `LICENSE`, `package.json`, and `README.md`. The validator rejects source trees, `node_modules`, `.env` files, generated HumanQA output, missing license/readme/bin files, workspace references, unexpected runtime dependencies, archives above 3 MB, and a missing executable shebang.
 
-## Website artifact
+Public-registry validation confirmed both package versions, exercised organization-package initialization and pack validation, and returned zero production vulnerabilities for a clean direct-package install.
 
-The production build contains both routes, hashed assets, the generated Open Graph card, original evidence-glyph icons, browser favicon, pinned-tab metadata, web-app manifest, actual fixture-report captures, `.openai/hosting.json`, and `dist/server/index.js`. The hosting archive is created from this `dist` tree and checked for both required Sites entries. Public HTTP checks returned 200 for the home page, `/icon.svg`, and `/site.webmanifest`; the manifest identifies `HumanQA` and its maskable SVG icon.
+## Website and self-hosting artifacts
 
-Visual evidence:
+The production website serves the home and documentation routes, original evidence-glyph family, generated Open Graph asset, SVG/ICO/Apple/192/512 browser identity assets, and web-app manifest. Direct public HTTP checks returned 200 for `/`, `/docs/`, `/favicon.ico`, and `/icon-192.png`; the home page contained the clean canonical URL and current 39-test proof.
 
-- [desktop marketing page](assets/site-desktop.png)
-- [desktop documentation page](assets/docs-desktop.png)
-- [390 px mobile marketing page](assets/site-mobile.png)
+Hosting targets:
+
+- Public Vercel production: [humanqa-oss.vercel.app](https://humanqa-oss.vercel.app/)
+- Owner-only Sites production: [humanqa-evidence.kumarishil2198.chatgpt.site](https://humanqa-evidence.kumarishil2198.chatgpt.site), saved version 6 from the exact release commit
+- Public container: [ghcr.io/hotragn/humanqa-site](https://github.com/users/Hotragn/packages/container/package/humanqa-site)
+- Container manifest digest: `sha256:b450355502be0dce0778f61da6128fd096aa3cd7d7d2638a1750f75794f4f0f7`
+- Published image tags: `0.1.4`, `0.1`, `latest`, and `sha-c82e961`
+- Kubernetes manifests: `deploy/kubernetes/humanqa-site.yaml` parses to one Deployment and one Service
+
+The local Docker daemon was unavailable during this audit, so the successful GitHub Buildx publication is the authoritative image build. It executed the Dockerfile on Linux and produced public provenance and SBOM attestations.
 
 ## Release automation
 
-- GitHub CI runs formatting, linting, type checking, unit tests, pack tests, and Chromium E2E tests.
-- Vercel builds `apps/site` from `main`, with the monorepo root, Vite framework, Node 24 runtime, and `dist` output configured explicitly.
-- npm publishing uses Node 24, npm trusted-publisher OIDC permissions, the complete release gate, public access, and provenance. No long-lived npm token is stored in the workflow.
-- All internal workspace packages are marked private. Only the validated `apps/cli` bundle is publishable; release automation gives that same bundle the direct `humanqa` and organization-owned `@humanqa/cli` identities.
+- CI runs dependency audit, formatting, linting, type checking, unit tests, pack tests, and Chromium E2E tests.
+- The standalone HumanQA workflow runs on pull requests and `main`, starts the deterministic fixture, executes the same bundled CLI entrypoint shipped to npm, and uploads the evidence bundle with `actions/upload-artifact@v7`.
+- npm publication uses Node 24, trusted-publisher OIDC, the complete release gate, public access, and provenance. No long-lived npm token is stored in the workflow.
+- The container workflow uses Buildx, GHCR, semantic and SHA tags, maximum provenance, and an SBOM.
+- Dependabot groups compatible minor/patch changes while leaving major upgrades for deliberate compatibility work; security updates remain enabled.
 
-## Release handoff
+## Scale and adoption boundary
 
-The npm trusted publisher is configured for both package names with repository `Hotragn/humanqa`, workflow `publish-npm.yml`, GitHub environment `npm`, and publish-only permission. Future versions should be published through GitHub so npm can attach OIDC provenance; the workflow is idempotent and safely skips any package version that is already present.
+The current product is intentionally local-first and stateless: the CLI and reports scale with CI runners, while the documentation website can be replicated behind Kubernetes without introducing an application database or control plane. Capacity triggers and a future hosted-service boundary are documented in `docs/architecture-and-scaling.md`.
 
-## Registry security audit
-
-The first 0.1.2 public install check surfaced GHSA-7mvr-c777-76hp in `playwright@1.55.0`. Outreach was paused, Playwright and its test package were updated to 1.55.1, the complete gate was rerun, and 0.1.3 was published. Independent `npm audit --omit=dev` runs against clean installs of `humanqa@0.1.3` and `@humanqa/cli@0.1.3` each returned zero vulnerabilities. This is a time-bounded registry result, not a guarantee against future advisories.
+Engineering readiness is not adoption evidence. At validation time the repository had zero stars and zero forks, and no independent user outcome had been verified. Clone events are not counted as users. The next product milestone is three observed audits from authorized external testers, followed by fixing repeated friction before expanding scope.
 
 ## Reproduction
 
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
+pnpm security:audit
 pnpm humanqa install-browser
 pnpm release:validate
-pnpm site:validation-shots
 ```
 
-The live Vercel deployment was checked from the public `@humanqa/cli@0.1.3` package and over direct HTTP: the audit returned score 100/100 with zero findings, both routes and browser-identity assets responded, the organization package link and current test count were present, and the web manifest decoded to the expected HumanQA identity.
+For a public-package smoke test:
+
+```bash
+npx @humanqa/cli@0.1.4 --version
+npx @humanqa/cli@0.1.4 init --name "Registry Smoke" --url https://example.com
+npx @humanqa/cli@0.1.4 validate-pack humanqa/journeys/smoke.yaml
+```
