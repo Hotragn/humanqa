@@ -13,6 +13,6 @@
   "dependencies": {
     "@axe-core/playwright": "4.13.0",
     "@humanqa/core": "workspace:*",
-    "playwright": "1.62.1"
+    "playwright": "1.63.0"
   }
 }
